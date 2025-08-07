@@ -28,7 +28,7 @@ class HomeController extends Controller
         return match ($type) {
             'Admin' => redirect()->to('admin/dashboard'),
             'Driver' => redirect()->to('driver/dashboard'),
-            default => redirect()->to('/')
+            default => redirect()->to('/booking')
         };
     }
 
