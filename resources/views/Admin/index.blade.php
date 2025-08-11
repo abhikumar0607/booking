@@ -192,7 +192,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/id.png" alt="indonesia">
+                                    <img src="{{ url('public/admin/assets/img/flags/id.png') }}" alt="indonesia">
                                   </div>
                                 </td>
                                 <td>Indonesia</td>
@@ -202,7 +202,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/us.png" alt="united states">
+                                    <img src="{{ url('public/admin/assets/img/flags/us.png') }}" alt="united states">
                                   </div>
                                 </td>
                                 <td>USA</td>
@@ -212,7 +212,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/au.png" alt="australia">
+                                    <img src="{{ url('public/admin/assets/img/flags/au.png') }}" alt="australia">
                                   </div>
                                 </td>
                                 <td>Australia</td>
@@ -222,7 +222,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/ru.png" alt="russia">
+                                    <img src="{{ url('public/admin/assets/img/flags/ru.png') }}" alt="russia">
                                   </div>
                                 </td>
                                 <td>Russia</td>
@@ -232,7 +232,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/cn.png" alt="china">
+                                    <img src="{{ url('public/admin/assets/img/flags/cn.png') }}" alt="china">
                                   </div>
                                 </td>
                                 <td>China</td>
@@ -242,7 +242,7 @@
                               <tr>
                                 <td>
                                   <div class="flag">
-                                    <img src="assets/img/flags/br.png" alt="brazil">
+                                    <img src="{{ url('public/admin/assets/img/flags/br.png') }}" alt="brazil">
                                   </div>
                                 </td>
                                 <td>Brasil</td>
@@ -285,7 +285,7 @@
                     <div class="card-list py-4">
                       <div class="item-list">
                         <div class="avatar">
-                          <img src="assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+                          <img src="{{ url('public/admin/assets/img/jm_denis.jpg') }}" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="info-user ms-3">
                           <div class="username">Jimmy Denis</div>
@@ -315,7 +315,7 @@
                       </div>
                       <div class="item-list">
                         <div class="avatar">
-                          <img src="assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+                          <img src="{{ url('public/admin/assets/img/talha.jpg') }}" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="info-user ms-3">
                           <div class="username">Talha</div>
@@ -330,7 +330,7 @@
                       </div>
                       <div class="item-list">
                         <div class="avatar">
-                          <img src="assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
+                          <img src="{{ url('public/admin/assets/img/chadengle.jpg') }}" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="info-user ms-3">
                           <div class="username">Chad</div>

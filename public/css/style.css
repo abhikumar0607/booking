@@ -1,0 +1,204 @@
+:root{
+    --dark-blue:#062754;
+    --nav-dark:#062754;
+    --panel:#E2EDFF;
+    --cta:#ff7a00;
+    --footer:#041e34;
+    --text:#ffffff;
+  }
+  h1 {
+    font-size: 96px;
+    line-height: 87px;
+    font-weight: 900;
+    }
+    h3 {
+        font-size: 48px;
+        line-height: 52px;
+        font-weight: 600;
+    }
+  .fs-48 {
+    font-size: 48px !important;
+  }
+  /* General */
+  body {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--dark-blue);
+    color: var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* Keep the site width to 1275px */
+  .container {
+    max-width: 1275px;
+  }
+
+  /* ---------- NAVBAR (updated behavior) ---------- */
+  /* Use a custom class so we don't conflict with default bootstrap behavior */
+  .custom-navbar {
+    position: absolute;           /* overlay hero initially */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    background: transparent;      /* transparent over hero */
+    padding: 18px 0;
+    transition: background-color 240ms ease, padding 200ms ease, box-shadow 240ms ease, backdrop-filter 240ms ease;
+  }
+
+  /* When scrolled - make it fixed with solid background */
+  .custom-navbar.scrolled {
+    position: fixed;
+    background-color: var(--nav-dark);
+    box-shadow: 0 6px 18px rgba(2,10,34,0.55);
+    padding: 20px 0;
+    backdrop-filter: blur(4px);
+  }
+
+  .custom-navbar .navbar-brand {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .custom-navbar .nav-link {
+    color: #fff !important;
+    font-weight: 600;
+  }
+
+  .custom-navbar .nav-link:hover {
+    color: var(--cta) !important;
+  }
+
+  /* Make toggler visible on transparent background */
+  .custom-navbar .navbar-toggler {
+    border-color: rgba(255,255,255,0.22);
+  }
+  .custom-navbar .navbar-toggler-icon {
+    filter: invert(1) brightness(2);
+  }
+
+  /* Small container inside nav to align with page container */
+  .nav-inner {
+    max-width: 1275px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .ht-logo {
+    width: 215px;
+    height: auto;
+    }
+  .hero {
+    padding: 120px 0 60px;
+    background-image: url('../images/head-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .hero p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 29px;
+    padding: 1rem 9rem 10rem 0;
+  }
+  .booking-form {
+    background: var(--panel);
+    padding: 20px;
+    border-radius: 15px;
+  }
+  input::placeholder {
+    font-size: 12px;
+  }
+  .quantity-wrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 5px 10px;
+    border: 2px solid #dce4f0;
+    gap: 8px;
+  }
+  
+  .qty-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #a0a0a0;
+    line-height: 1;
+  }
+  
+  .qty-btn:hover {
+    color: #333;
+  }
+  
+  .qty-input {
+    width: 40px;
+    text-align: center;
+    font-size: 20px;   
+    border: none;
+    outline: none;
+    color: #070707;
+  }
+   
+  .form-select.text-dark.bform{
+    font-size: 12px;
+    padding: 9px 10px;
+    }
+  .btn-orange {
+    background-color: var(--cta);
+    color: #fff;
+    font-weight: 700;
+    border: none;
+  }
+  .btn-orange:hover { background-color: #e56c00; }
+
+  .partner-logos img {
+    margin: 8px;
+  }
+
+  .services .service-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .services .service-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .services .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgb(17 60 105 / 70%), transparent);
+  }
+
+  .services .overlay h5 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .footer {
+    background-image: url('../images/footer.jpg');
+    padding: 20px 0;
+    color: #fff;
+  }
+  .footer a { color: var(--cta); text-decoration: none; }
+
+  /* Responsive tweaks so the nav inner padding matches bootstrap container on small screens */
+  @media (max-width: 575.98px){
+    .nav-inner { padding: 0 12px; }
+    .hero { padding-top: 100px; }
+  }

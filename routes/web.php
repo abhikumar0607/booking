@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->to('/booking');
-});
+// Route::get('/', function () {
+//     return redirect()->to('/booking');
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\FrontEndController::class, 'home']);
 Route::get('/booking', [App\Http\Controllers\Customer\BookingController::class, 'index']);
 Route::post('/booking-store', [App\Http\Controllers\Customer\BookingController::class, 'store'])->name('booking.store');
 
