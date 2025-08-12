@@ -9,7 +9,6 @@
       <meta name="keywords" content="">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-      <script src="https://js.stripe.com/v3/"></script>
       <link rel="stylesheet" href="{{ url('public/css/style.css') }}">
    </head>
    <body>
@@ -164,6 +163,68 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('booking-form').appendChild(hiddenTotal);
 });
 </script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const stripe = Stripe("{{ env('STRIPE_PUBLISHABLE_KEY') }}");
+    const elements = stripe.elements();
+    const card = elements.create('card');
 
-   </body>
+    const stripeCardSection = document.getElementById('stripe-card-section');
+    const stripeRadio = document.getElementById('payment_stripe');
+    const codRadio = document.getElementById('payment_cod');
+    const form = document.getElementById('booking-form'); // ✅ updated to match your form
+
+    function toggleStripeSection() {
+        if (stripeRadio.checked) {
+            stripeCardSection.style.display = 'block';
+            if (!card._mounted) {
+                card.mount('#card-element');
+                card._mounted = true;
+            }
+        } else {
+            stripeCardSection.style.display = 'none';
+        }
+    }
+
+    stripeRadio.addEventListener('change', toggleStripeSection);
+    codRadio.addEventListener('change', toggleStripeSection);
+
+    toggleStripeSection();
+
+    card.addEventListener('change', function(event) {
+        document.getElementById('card-errors').textContent = event.error ? event.error.message : '';
+    });
+
+   // Handle form submit
+   form.addEventListener('submit', async function (event) {
+      if (stripeRadio.checked) {
+         event.preventDefault();
+
+         const { token, error } = await stripe.createToken(card);
+
+         if (error) {
+               document.getElementById('card-errors').textContent = error.message;
+         } else {
+              
+               // ✅ Reuse existing hidden field or create only once
+               let hiddenInput = document.getElementById('stripe_token');
+               if (!hiddenInput) {
+                  hiddenInput = document.createElement('input');
+                  hiddenInput.type = 'hidden';
+                  hiddenInput.name = 'stripe_token';
+                  hiddenInput.id = 'stripe_token';
+                  form.appendChild(hiddenInput);
+               }
+               hiddenInput.value = token.id;
+
+               form.submit();
+         }
+      }
+   });
+
+});
+</script>
+
+ </body>
 </html>

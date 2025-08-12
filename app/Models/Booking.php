@@ -16,7 +16,8 @@ class Booking extends Model
         'delivery_notes',
         'item_type',
         'number_of_items',
-        'price'
+        'price',
+        'payment_status'
     ];
 
     public function payment()

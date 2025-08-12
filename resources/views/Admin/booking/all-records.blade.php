@@ -44,6 +44,10 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
                                                     style="width: 156.312px;">Delivery Notes</th>
+                                                 <th class="sorting" tabindex="0" aria-controls="basic-datatables"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 156.312px;">Items</th>
                                                 <th class="sorting" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
@@ -61,6 +65,7 @@
                                                 <td>{{ $booking->delivery_address }}</td>
                                                 <td>{{ $booking->recipient_phone }}</td>
                                                 <td>{{ $booking->delivery_notes }}</td>
+                                                <td>{{ $booking->item_type }}</td>
                                                 <td>{{ $booking->price }}</td>
                                             </tr>
                                             @endforeach

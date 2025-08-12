@@ -90,17 +90,32 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-dark small fw-bold">Choose payment method</label>
-                            <div>
-                                <label class="text-dark small" for="stripe">Stripe</label>
-                                <input type="radio" name="payment_method" id="payment_stripe" value="Stripe" {{ old('payment_method') == 'Stripe' ? 'checked' : '' }}>            
-                                <label class="text-dark small" for="cod">Cash on Delivery</label>
-                                <input type="radio" name="payment_method" id="payment_cod" value="Cash on Delivery" {{ old('payment_method') == 'Cash on Delivery' ? 'checked' : '' }}>
-                                @error('payment_method') <br><small class="text-danger">{{ $message }}</small> @enderror
+                                <label class="form-label text-dark small fw-bold">Choose payment method</label>
+                                <div>
+                                    <!-- Stripe Option -->
+                                    <label class="text-dark small" for="payment_stripe">Stripe</label>
+                                    <input type="radio" name="payment_method" id="payment_stripe" value="Stripe" 
+                                        {{ old('payment_method') == 'Stripe' ? 'checked' : '' }}>     
+
+                                    <div id="stripe-card-section" style="display:none;">
+                                        <div id="card-element" class="form-control mb-3"></div>
+                                        <div id="card-errors" role="alert" class="text-danger small mt-1"></div>  
+                                    </div>
+
+                                    <!-- COD Option -->
+                                    <label class="text-dark small" for="payment_cod">Cash on Delivery</label>
+                                    <input type="radio" name="payment_method" id="payment_cod" value="Cash on Delivery" 
+                                        {{ old('payment_method') == 'Cash on Delivery' ? 'checked' : '' }}>
+
+                                    @error('payment_method') 
+                                        <br><small class="text-danger">{{ $message }}</small> 
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+
 
                         <div id="totalPrice" class="mb-3 fw-bold text-dark">Total Price: $0</div>
+                        <input type="hidden" name="stripe_token" id="stripe_token">
                         <button type="submit" class="btn btn-orange w-100">Submit Booking</button>
                         @if(session('success'))
                             <div class="alert alert-success">
