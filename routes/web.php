@@ -20,4 +20,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     //bookings
     Route::get('/bookings', [App\Http\Controllers\Admin\BookingController::class, 'index']);
+    Route::get('/add-driver', [App\Http\Controllers\Driver\DriverController::class, 'add_new_driver']);
+    Route::post('/submit-driver', [App\Http\Controllers\Driver\DriverController::class, 'submit_driver'])->name('driver.submit.driver');
+    Route::get('/drivers', [App\Http\Controllers\Driver\DriverController::class, 'view_drivers']);
 });

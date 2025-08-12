@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/kaiadmin.min.css') }}" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/demo.css') }}" />
   </head>
@@ -63,7 +63,7 @@
     <script src="{{ url('public/admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url('public/admin/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ url('public/admin/assets/js/core/bootstrap.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/js/all.min.js"></script>
     <!-- jQuery Scrollbar -->
     <script src="{{ url('public/admin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 

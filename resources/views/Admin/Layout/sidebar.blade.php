@@ -30,25 +30,49 @@
             </a>
           </li>
 
+          {{-- Bookings --}}
+          <li class="nav-item {{ request()->is('admin/bookings*') ? 'active' : '' }}">
+            <a data-bs-toggle="collapse" href="#collapseBookings" class="{{ request()->is('admin/bookings*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('admin/bookings*') ? 'true' : 'false' }}">
+              <i class="fas fa-calendar"></i>
+              <p>Bookings</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse {{ request()->is('admin/bookings*') ? 'show' : '' }}" id="collapseBookings">
+              <ul class="nav nav-collapse">
+                <li class="{{ request()->is('admin/bookings') ? 'active' : '' }}">
+                  <a href="{{ url('admin/bookings') }}">
+                    <span class="sub-item">All Records</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
 
-            {{-- Bookings --}}
-            <li class="nav-item {{ request()->is('admin/bookings*') ? 'active' : '' }}">
-              <a data-bs-toggle="collapse" href="#collapseBookings" class="{{ request()->is('admin/bookings*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('admin/bookings*') ? 'true' : 'false' }}">
-                <i class="fas fa-calendar"></i>
-                <p>Bookings</p>
-                <span class="caret"></span>
-              </a>
-              <div class="collapse {{ request()->is('admin/bookings*') ? 'show' : '' }}" id="collapseBookings">
-                <ul class="nav nav-collapse">
-                  <li class="{{ request()->is('admin/bookings') ? 'active' : '' }}">
-                    <a href="{{ url('admin/bookings') }}">
-                      <span class="sub-item">All Records</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          {{-- Add Drivers --}}
+          <li class="nav-item {{ request()->is('admin/add-driver*') ? 'active' : '' }}">
+            <a data-bs-toggle="collapse" href="#collapseDrivers" class="{{ request()->is('admin/add-driver*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('admin/add-driver*') ? 'true' : 'false' }}">
+              <i class="fas fa-user"></i>
+              <p>Add Drivers</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse {{ request()->is('admin/add-driver*') ? 'show' : '' }}" id="collapseDrivers">
+              <ul class="nav nav-collapse">
+                <li class="{{ request()->is('add/driver') ? 'active' : '' }}">
+                  <a href="{{ url('admin/add-driver') }}">
+                    <span class="sub-item">Add Driver</span>
+                  </a>
+                </li>
+                <li class="{{ request()->is('drivers') ? 'active' : '' }}">
+                  <a href="{{ url('admin/drivers') }}">
+                    <span class="sub-item">All Driver</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          {{-- Settings --}}
+
 
           </div>
         </div><div class="scroll-element scroll-x scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 202px; top: 0px;"></div></div></div></div>
