@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BookingRequest;
 use Illuminate\Http\Request;
 use App\Services\Payments\PaymentServiceInterface;
 
@@ -22,27 +21,28 @@ class BookingController extends Controller
     {
         return view('Customer/booking-form');
     }
-
-    //function for store data
-    public function store(BookingRequest $request)
+    public function store_data(Request $request)
     {
-        $data = $request->validated();
-        // StepCreate Booking
-        $booking = Booking::create([
-            'sender_name'     => $data['sender_name'],
-            'pickup_address'  => $data['pickup_address'],
-            'recipient_name'  => $data['recipient_name'],
-            'delivery_address'=> $data['delivery_address'],
-            'recipient_phone' => $data['recipient_phone'],
-            'delivery_notes'  => $data['delivery_notes'] ?? null,
-            'item_type'       => $data['item_type'],
-            'number_of_items' => $data['number_of_items'],
-            'price'           => $data['price'],
-        ]);
-
-        // StepProcess Payment
-        $this->paymentService->pay(array_merge($data, ['booking_id' => $booking->id]));
-        return redirect()->back()->with('success', 'Booking created successfully!');
+         $data = $request->all();
+        //echo "<pre>"; print_r($data); echo "</pre>";exit;
+        foreach ($data['item_type'] as $index => $type) {
+            if (empty($type)) {
+                continue; // skip empty item_type entries
+            }
+        
+            Booking::create([
+                'sender_name'      => $data['sender_name'],
+                'sender_phone'     => $data['sender_phone'],
+                'pickup_address'   => $data['pickup_address'],
+                'recipient_name'   => $data['recipient_name'],
+                'recipient_phone'  => $data['recipient_phone'],
+                'delivery_address' => $data['delivery_address'],
+                'delivery_notes'   => $data['delivery_notes'] ?? null,
+                'item_type'        => $type,
+                'number_of_items'  => $data['number_of_items'][$index] ?? 1,
+                'price'            => $data['price'][$index] ?? 0,
+            ]);
+        }
     }
-
+        
 }

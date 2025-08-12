@@ -19,103 +19,95 @@
             <div class="col-lg-5">
                 <div class="booking-form">
                     <h5 class="fw-bold mb-3 text-dark text-center">Instant Quote. Book Now and Save!</h5>
-                    <form>
+                    <form id="booking-form" action="{{ route('store.booking') }}" method="POST">
+                        @csrf
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender's Name</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter sender's name">
+                                <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}">
+                                @error('sender_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender Phone Number</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter sender's phone">
+                                <input type="number" name="sender_phone" class="form-control" placeholder="Sender Phone" value="{{ old('sender_phone') }}">
+                                @error('sender_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Pickup Address</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter pickup address">
+                                <input type="text" name="pickup_address" value="{{ old('pickup_address') }}" class="form-control text-dark" placeholder="Enter pickup address"> 
+                                @error('pickup_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Recipient's Name</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter recipient's name">
+                                <input type="text" name="recipient_name" class="form-control" placeholder="Recipient's Name" value="{{ old('recipient_name') }}">
+                                @error('recipient_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Delivery Address</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter delivery address">
+                                <input type="text" name="delivery_address" value="{{ old('delivery_address') }}" class="form-control text-dark" placeholder="Enter delivery address">
+                                @error('delivery_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Recipient's Phone</label>
-                                <input type="text" class="form-control text-dark" placeholder="Enter recipient's phone">
+                                <input type="number" name="recipient_phone" class="form-control" placeholder="Recipient Phone" value="{{ old('recipient_phone') }}">
+                                @error('recipient_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label text-dark small fw-bold">Delivery Note</label>
-                            <input type="text" class="form-control text-dark" placeholder="Enter any special instructions">
+                            <textarea name="delivery_notes" class="form-control" placeholder="Delivery Notes">{{ old('delivery_notes') }}</textarea>
+                            @error('delivery_notes') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label text-dark small fw-bold">Select package style</label>
-
-                            <div class="row g-2 mb-2 align-items-center text-dark">
-                                <div class="col-8">
-                                    <select class="form-select text-dark bform">
-                                        <option selected>Skid / $400 AUD</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                    </select>
+                            <div class="container py-3">
+                                <div class="row g-2 mb-2 align-items-center text-dark">
+                                    <div class="col-8">
+                                        <select name="item_type[]" class="form-select text-dark bform" id="packageSelect">
+                                            <option value="">Select package style</option>
+                                            <option value="400">Skid / $400 AUD</option>
+                                            <option value="350">Pallet / $350 AUD</option>
+                                            <option value="45">Tube / $45 AUD</option>
+                                            <option value="45">Crate / $45 AUD</option>
+                                            <option value="40">Satchel / $40 AUD</option>
+                                            <option value="35">Bag / $35 AUD</option>
+                                            <option value="30">Envelope / $30 AUD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="button" id="addPackageBtn" class="btn btn-primary w-100">Add Package</button>
+                                    </div>
                                 </div>
-                                <div class="col-4 d-flex">
-                                    <div class="quantity-wrapper">
-                                        <button type="button" class="qty-btn decrease" onclick="this.nextElementSibling.stepDown()">
-                                            ▼
-                                        </button>
-                                        <input type="number" class="qty-input" value="1" min="1">
-                                        <button type="button" class="qty-btn increase" onclick="this.previousElementSibling.stepUp()">
-                                            ▲
-                                        </button>
-                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-2 align-items-center">
-                                <div class="col-8">
-                                    <select class="form-select text-dark bform">
-                                        <option selected>Pallet / $500 AUD</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                    </select>
-                                </div>
-                                <div class="col-4 d-flex">
-                                    <div class="quantity-wrapper">
-                                        <button type="button" class="qty-btn decrease" onclick="this.nextElementSibling.stepDown()">
-                                            ▼
-                                        </button>
-                                        <input type="number" class="qty-input" value="1" min="1">
-                                        <button type="button" class="qty-btn increase" onclick="this.previousElementSibling.stepUp()">
-                                            ▲
-                                        </button>
-                                     </div>
-                                </div>
-                            </div>
+                                <div id="packageList"></div>
+                            </div>                   
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label text-dark small fw-bold">Choose payment method</label>
                             <div>
-                                <input type="radio" name="payment" id="stripe" checked>
                                 <label class="text-dark small" for="stripe">Stripe</label>
-                                <input type="radio" name="payment" id="cod" class="ms-3">
+                                <input type="radio" name="payment_method" id="payment_stripe" value="Stripe" {{ old('payment_method') == 'Stripe' ? 'checked' : '' }}>            
                                 <label class="text-dark small" for="cod">Cash on Delivery</label>
+                                <input type="radio" name="payment_method" id="payment_cod" value="Cash on Delivery" {{ old('payment_method') == 'Cash on Delivery' ? 'checked' : '' }}>
+                                @error('payment_method') <br><small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
 
-                        <div class="mb-3 fw-bold text-dark">Total Price: $1200</div>
+                        <div id="totalPrice" class="mb-3 fw-bold text-dark">Total Price: $0</div>
                         <button type="submit" class="btn btn-orange w-100">Submit Booking</button>
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                     </form>
                 </div>
             </div>
@@ -154,22 +146,22 @@
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
                         <strong>Fill the Booking Form</strong>
-                        <p class="small mt-3 mt-3 fw-light">Enter sender and recipient details, delivery type, and item info.</p>
+                        <p class="small mt-3  fw-light">Enter sender and recipient details, delivery type, and item info.</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon1.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
                         <strong>Choose Your Price Option</strong>
-                        <p class="small mt-3 mt-3 fw-light">Pick from 6 fixed pricing tiers based on your item type.</p>
+                        <p class="small  mt-3 fw-light">Pick from 6 fixed pricing tiers based on your item type.</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon2.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
                         <strong>Choose Payment Method</strong>
-                        <p class="small mt-3 mt-3 fw-light">Pay with PayPal or select Cash on Delivery.</p>
+                        <p class="small mt-3  fw-light">Pay with PayPal or select Cash on Delivery.</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon3.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
                         <strong>Submit &amp; Done</strong>
-                        <p class="small mt-3 mt-3 fw-light">We’ll take care of the rest! Your delivery details are sent directly to our dispatch team.</p>
+                        <p class="small mt-3  fw-light">We’ll take care of the rest! Your delivery details are sent directly to our dispatch team.</p>
                     </div>
                 </div>
             </div>

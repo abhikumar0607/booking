@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 // Route::get('/', function () {
 //     return redirect()->to('/booking');
 // });
@@ -10,8 +10,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\FrontEndController::class, 'home']);
-Route::get('/booking', [App\Http\Controllers\Customer\BookingController::class, 'index']);
-Route::post('/booking-store', [App\Http\Controllers\Customer\BookingController::class, 'store'])->name('booking.store');
+//Route::get('/booking', [App\Http\Controllers\Customer\BookingController::class, 'index']);
+Route::post('/store-booking', [App\Http\Controllers\Customer\BookingController::class, 'store_data'])->name('store.booking');
 
 
 //admin

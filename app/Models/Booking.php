@@ -8,6 +8,7 @@ class Booking extends Model
 {
      protected $fillable = [
         'sender_name',
+        'sender_phone',
         'pickup_address',
         'recipient_name',
         'delivery_address',
