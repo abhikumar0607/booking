@@ -43,6 +43,7 @@ class BookingController extends Controller
                 'price'            => $data['price'][$index] ?? 0,
             ]);
         }
+        return back()->with('success', 'Booking created successfully!');
     }
         
 }
