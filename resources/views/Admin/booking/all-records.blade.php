@@ -44,7 +44,7 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
                                                     style="width: 156.312px;">Delivery Notes</th>
-                                                 <th class="sorting" tabindex="0" aria-controls="basic-datatables"
+                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
                                                     style="width: 156.312px;">Items</th>
@@ -62,50 +62,53 @@
                                                     style="width: 156.312px;">Invoice</th>
                                             </tr>
                                         </thead>
-                                        
+
                                         <tbody>
                                             @if(count($bookings) >= 1)
-                                                @foreach($bookings as $booking)
-                                                <tr role="row" class="odd" id="booking-row-{{ $booking->id }}">
-                                                    <td class="sorting_1">{{ $booking->sender_name }}</td>
-                                                    <td>{{ $booking->pickup_address }}</td>
-                                                    <td>{{ $booking->recipient_name }}</td>
-                                                    <td>{{ $booking->delivery_address }}</td>
-                                                    <td>{{ $booking->recipient_phone }}</td>
-                                                    <td>{{ $booking->delivery_notes }}</td>
-                                                    <td>{{ $booking->item_type }}</td>
-                                                    <td>{{ $booking->price }}</td>
-                                                    <td>
+                                            @foreach($bookings as $booking)
+                                            <tr role="row" class="odd" id="booking-row-{{ $booking->id }}">
+                                                <td class="sorting_1">{{ $booking->sender_name }}</td>
+                                                <td>{{ $booking->pickup_address }}</td>
+                                                <td>{{ $booking->recipient_name }}</td>
+                                                <td>{{ $booking->delivery_address }}</td>
+                                                <td>{{ $booking->recipient_phone }}</td>
+                                                <td>{{ $booking->delivery_notes }}</td>
+                                                <td>{{ $booking->item_type }}</td>
+                                                <td>{{ $booking->price }}</td>
+                                                <td>
                                                     <select class="form-control driver-select" name="driver_id" data-booking-id="{{ $booking->id }}" {{ $booking->driver_id ? 'disabled' : '' }}>
-                                                    <option value="">Select Driver</option>
+                                                        <option value="">Select Driver</option>
                                                         @foreach($drivers as $driver)
-                                                            @php
-                                                                $isOnline = $driver->last_activity && \Carbon\Carbon::parse($driver->last_activity)->gt(now()->subMinutes(2));
-                                                                $emoji = $isOnline ? '🟢' : '🔴';
-                                                            @endphp
-                                                            <option 
-                                                                value="{{ $driver->id }}" 
-                                                                data-emoji="{{ $emoji }}" 
-                                                                data-status="{{ $isOnline ? 'online' : 'offline' }}"
-                                                                {{ $booking->driver_id == $driver->id ? 'selected' : '' }}
-                                                            >
-                                                                {{ $driver->name }}
-                                                    </option>
+                                                        @php
+                                                        $isOnline = $driver->last_activity && \Carbon\Carbon::parse($driver->last_activity)->gt(now()->subMinutes(2));
+                                                        $emoji = $isOnline ? '🟢' : '🔴';
+                                                        @endphp
+                                                        <option
+                                                            value="{{ $driver->id }}"
+                                                            data-emoji="{{ $emoji }}"
+                                                            data-status="{{ $isOnline ? 'online' : 'offline' }}"
+                                                            {{ $booking->driver_id == $driver->id ? 'selected' : '' }}>
+                                                            {{ $driver->name }}
+                                                        </option>
                                                         @endforeach
                                                     </select>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-primary generate-invoice" 
-                                                                data-booking='@json($booking)'>
-                                                            Download Invoice
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
+
+                                                    <!-- Message div -->
+                                                    <div id="driver-message-{{ $booking->id }}" class="mt-2"></div>
+
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-primary generate-invoice"
+                                                        data-booking='@json($booking)'>
+                                                        Download Invoice
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                             @else
-                                                <tr>
-                                                    <td colspan="9">No bookings found</td>
-                                                </tr>
+                                            <tr>
+                                                <td colspan="9">No bookings found</td>
+                                            </tr>
                                             @endif
                                         </tbody>
                                     </table>
@@ -119,17 +122,17 @@
     </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    $('.driver-select').select2({
-        templateResult: formatDriver,
-        templateSelection: formatDriver
-    });
+    document.addEventListener("DOMContentLoaded", function() {
+        $('.driver-select').select2({
+            templateResult: formatDriver,
+            templateSelection: formatDriver
+        });
 
-    function formatDriver(driver) {
-        if (!driver.id) return driver.text;
-        var emoji = $(driver.element).data('emoji');
-        return $('<span><span class="driver-emoji">' + emoji + '</span> ' + driver.text + '</span>');
-    }
-});
+        function formatDriver(driver) {
+            if (!driver.id) return driver.text;
+            var emoji = $(driver.element).data('emoji');
+            return $('<span><span class="driver-emoji">' + emoji + '</span> ' + driver.text + '</span>');
+        }
+    });
 </script>
 @endsection
