@@ -1,0 +1,29 @@
+.sidebar, .sidebar[data-background-color=white]{
+  width: 172px;;
+}
+.logo-header{
+  width: 172px;
+  padding:8px;
+}
+.main-panel {
+  position: relative;
+  width: calc(100% - 172px);
+  height: 100vh;
+  min-height: 100%;
+  float: right;
+  transition: all .3s;
+}
+.sidebar .nav>.nav-item a p, .sidebar[data-background-color=white] .nav>.nav-item a p{
+  padding-left: 5px;;
+}
+.table thead th {
+  font-size: 12px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  padding: 12px 24px!important;
+  border-bottom-width: 1px;
+  font-weight: 600;
+}
+.main-header{
+  width:calc(100% - 172px);
+}

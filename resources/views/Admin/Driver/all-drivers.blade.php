@@ -7,9 +7,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">All records</h4>
-                </div>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0">All records</h4>
+                <a href="{{ url('admin/add-driver') }}" class="btn btn-primary">Add Driver</a>
+            </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">

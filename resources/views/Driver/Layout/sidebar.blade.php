@@ -3,7 +3,7 @@
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
       <a href="{{ url('admin/dashboard') }}" class="logo">
-        <img src="{{ url('public/admin/assets/img/kaiadmin/logo.svg') }}" alt="navbar brand" class="navbar-brand" height="20">
+        <img src="{{ url('public/images/logo.svg') }}" alt="navbar brand" class="navbar-brand" height="22">
       </a>
       <div class="nav-toggle">
         <button class="btn btn-toggle toggle-sidebar">
@@ -33,20 +33,10 @@
 
           {{-- Bookings --}}
           <li class="nav-item {{ request()->is('driver/assign-bookings*') ? 'active' : '' }}">
-            <a data-bs-toggle="collapse" href="#collapseBookings" class="{{ request()->is('driver/assign-bookings*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('driver/assign-bookings*') ? 'true' : 'false' }}">
+            <a href="{{ url('driver/assign-bookings') }}">
               <i class="fas fa-calendar"></i>
               <p>Bookings</p>
-              <span class="caret"></span>
-            </a>
-            <div class="collapse {{ request()->is('driver/assign-bookings*') ? 'show' : '' }}" id="collapseBookings">
-              <ul class="nav nav-collapse">
-                <li class="{{ request()->is('driver/assign-bookings') ? 'active' : '' }}">
-                  <a href="{{ url('driver/assign-bookings') }}">
-                    <span class="sub-item">All Assigned Bookings</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            </a>            
           </li>
       </div>
     </div>
