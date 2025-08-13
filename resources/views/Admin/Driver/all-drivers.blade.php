@@ -29,15 +29,14 @@
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
                                                     style="width: 242.688px;">Email</th>
-                                                    
+
                                                 <th class="sorting_asc" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
                                                     style="width: 242.688px;">Phone</th>
-                                                
+
                                             </tr>
                                         </thead>
-
                                         <tbody>
                                             @if(count($drivers) >= 1)
                                             @foreach($drivers as $driver)
@@ -45,9 +44,9 @@
                                                 <td class="sorting_1">{{ $driver->name }}</td>
                                                 <td>{{ $driver->email }}</td>
                                                 <td>{{ $driver->phone }}</td>
-                                               
-                                            @endforeach
-                                            @else
+
+                                                @endforeach
+                                                @else
                                             <tr>
                                                 <td colspan="7">No Drivers found</td>
                                             </tr>

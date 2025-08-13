@@ -36,6 +36,7 @@ class BookingController extends Controller
                 'amount'      => $totalPrice,
                 'currency'    => 'aud',
                 'description' => 'Booking payment for ' . $itemTypeString,
+                'sender_name' => $data['sender_name'],
             ]);
     
             if (!$paymentResult['success']) {

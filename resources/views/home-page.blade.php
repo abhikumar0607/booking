@@ -24,12 +24,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender's Name</label>
-                                <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}">
+                                <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}" required>
                                 @error('sender_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender Phone Number</label>
-                                <input type="number" name="sender_phone" class="form-control" placeholder="Sender Phone" value="{{ old('sender_phone') }}">
+                                <input type="number" name="sender_phone" class="form-control" placeholder="Sender Phone" value="{{ old('sender_phone') }}" required>
                                 @error('sender_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
@@ -37,12 +37,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Pickup Address</label>
-                                <input type="text" name="pickup_address" value="{{ old('pickup_address') }}" class="form-control text-dark" placeholder="Enter pickup address"> 
+                                <input type="text" name="pickup_address" value="{{ old('pickup_address') }}" class="form-control text-dark" placeholder="Enter pickup address" required> 
                                 @error('pickup_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Recipient's Name</label>
-                                <input type="text" name="recipient_name" class="form-control" placeholder="Recipient's Name" value="{{ old('recipient_name') }}">
+                                <input type="text" name="recipient_name" class="form-control" placeholder="Recipient's Name" value="{{ old('recipient_name') }}" required>
                                 @error('recipient_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
@@ -50,12 +50,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Delivery Address</label>
-                                <input type="text" name="delivery_address" value="{{ old('delivery_address') }}" class="form-control text-dark" placeholder="Enter delivery address">
+                                <input type="text" name="delivery_address" value="{{ old('delivery_address') }}" class="form-control text-dark" placeholder="Enter delivery address" required>
                                 @error('delivery_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Recipient's Phone</label>
-                                <input type="number" name="recipient_phone" class="form-control" placeholder="Recipient Phone" value="{{ old('recipient_phone') }}">
+                                <input type="number" name="recipient_phone" class="form-control" placeholder="Recipient Phone" value="{{ old('recipient_phone') }}" required>
                                 @error('recipient_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>

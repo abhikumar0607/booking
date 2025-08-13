@@ -39,8 +39,6 @@
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/kaiadmin.min.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
-    <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/demo.css') }}" />
     <script>
@@ -51,24 +49,24 @@
   <body>
     <div class="wrapper">
       <!-- Sidebar -->
-      @include('Admin.Layout.sidebar')
+      @include('Driver.Layout.sidebar')
       <!-- End Sidebar -->
       <div class="main-panel">
        <!----header-->
-       @include('Admin.Layout.Header')
+       @include('Driver.Layout.Header')
         <div class="container">
         <!---yield content-->
         @yield('content')
         </div>
         <!--footer-->
-        @include('Admin.Layout.footer')
+        @include('Driver.Layout.footer')
       </div>
 
 
     </div>
     <!--   Core JS Files   -->
     <script src="{{ url('public/admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url('public/admin/assets/js/custom-ajax.js') }}"></script>    
+    <script src="{{ url('public/admin/assets/js/custom-ajax.js') }}"></script> 
     <script src="{{ url('public/admin/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ url('public/admin/assets/js/core/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/js/all.min.js"></script>
@@ -86,7 +84,7 @@
 
     <!-- Datatables -->
     <script src="{{ url('public/admin/assets/js/plugin/datatables/datatables.min.js') }}"></script>
-
+ 
     <!-- jQuery Vector Maps -->
     <script src="{{ url('public/admin/assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
     <script src="{{ url('public/admin/assets/js/plugin/jsvectormap/world.js') }}"></script>
@@ -103,9 +101,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.0/jspdf.plugin.autotable.min.js"></script>
     <script src="{{ url('public/admin/assets/js/custom-script.js') }}"></script>
-    
-<!-- Select2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
        <script>
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});
@@ -138,6 +133,7 @@
         lineColor: "#ffa534",
         fillColor: "rgba(255, 165, 52, .14)",
       });
-    </script>
+    </script>  
+
   </body>
 </html>

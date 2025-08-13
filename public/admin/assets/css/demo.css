@@ -278,7 +278,16 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     color: #fff;
     opacity: 1;
     transition: color .2s ease; }
-
+  .driver-emoji {
+      font-size: 6px;
+      margin-right: 0px;
+      vertical-align: middle;
+   }
+  .select2-container .select2-selection--single {
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
 @media screen and (max-width: 1200px) {
   #modalShowcase .modal-dialog {
     padding: 3rem !important; } }

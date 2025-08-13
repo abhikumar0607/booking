@@ -17,6 +17,8 @@ class Booking extends Model
         'item_type',
         'number_of_items',
         'price',
+        'driver_id',
+        'status',
         'payment_status'
     ];
 

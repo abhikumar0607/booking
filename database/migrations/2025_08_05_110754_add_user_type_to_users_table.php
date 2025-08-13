@@ -15,7 +15,7 @@ return new class extends Migration
             // Adding user_type column to the users table
             $table->string('phone')->nullable();
             $table->enum('user_type', ['Admin', 'Customer', 'Driver', 'Subscriber'])->default('Customer');
-           
+            $table->timestamp('last_activity')->nullable();
         });
     }
 
@@ -26,6 +26,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
               $table->dropColumn('user_type');
+              $table->dropColumn('last_activity');
         });
     }
 };

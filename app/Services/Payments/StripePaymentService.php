@@ -14,9 +14,14 @@ class StripePaymentService implements PaymentServiceInterface
         // Avoid undefined array key by safely assigning the token
         $this->stripeToken = $stripeToken ?? request()->input('stripe_token', null);
     }
-    public function pay($amount, $currency = 'aud')
+    public function pay(array $data)
     {
         try {
+            $amount = $data['amount'] ?? 0;
+            $currency = $data['currency'] ?? 'aud';
+            $description = $data['description'] ?? 'Booking Payment';
+            $senderName = $data['sender_name'] ?? 'John Doe';
+
             if (!$this->stripeToken) {
                 return [
                     'success' => false,
@@ -24,14 +29,9 @@ class StripePaymentService implements PaymentServiceInterface
                     'transaction_id' => null,
                 ];
             }
-    
-            // Extract amount if passed as array
-            if (is_array($amount)) {
-                $amount = $amount['amount'] ?? 0;
-            }
-    
+
             $amount = (float) $amount;
-    
+
             if ($amount <= 0) {
                 return [
                     'success' => false,
@@ -39,16 +39,16 @@ class StripePaymentService implements PaymentServiceInterface
                     'transaction_id' => null,
                 ];
             }
-    
+
             \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-    
+
             $charge = \Stripe\Charge::create([
-                'amount' => (int) round($amount * 100), // convert to cents
+                'amount' => (int) round($amount * 100),
                 'currency' => $currency,
                 'source' => $this->stripeToken,
-                'description' => 'Booking Payment',
+                'description' => $description,
                 'shipping' => [
-                    'name' => 'John Doe',
+                    'name' => $senderName,
                     'address' => [
                         'line1'       => '123 Main Street',
                         'city'        => 'New York',
@@ -58,7 +58,7 @@ class StripePaymentService implements PaymentServiceInterface
                     ],
                 ],
             ]);
-    
+
             if ($charge->status === 'succeeded') {
                 return [
                     'success' => true,
@@ -79,8 +79,6 @@ class StripePaymentService implements PaymentServiceInterface
                 'transaction_id' => null,
             ];
         }
-    }
-    
-    
+    }   
     
 }
