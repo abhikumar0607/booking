@@ -27,3 +27,20 @@
 .main-header{
   width:calc(100% - 172px);
 }
+.table>tbody>tr>td, .table>tbody>tr>th {
+  padding:5px 6px!important;
+  font-size: 12px;;
+}
+.sidebar_minimize.sidebar_minimize_hover .sidebar .sidebar-wrapper {
+  width: 172px
+}
+
+.sidebar_minimize.sidebar_minimize_hover .sidebar .logo-header {
+  width: 172px
+}
+.sidebar_minimize.sidebar_minimize_hover .sidebar {
+  width: 172px
+}
+.copyright {
+  margin: 0 auto;
+}

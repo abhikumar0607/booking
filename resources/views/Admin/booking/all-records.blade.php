@@ -20,46 +20,16 @@
                                         aria-describedby="basic-datatables_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1" aria-sort="ascending"
-                                                    aria-label="Name: activate to sort column descending"
-                                                    style="width: 242.688px;">Sender Name</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Position: activate to sort column ascending"
-                                                    style="width: 366.578px;">PickUp Address</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Office: activate to sort column ascending"
-                                                    style="width: 187.688px;">Recipient Name</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Age: activate to sort column ascending"
-                                                    style="width: 84.5px;">Delivery Address</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Start date: activate to sort column ascending"
-                                                    style="width: 184.234px;">Recepient Phone</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 156.312px;">Delivery Notes</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 156.312px;">Items</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 156.312px;">Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 156.312px;">Assign Drivers</th>
-                                                <th class="sorting" tabindex="0" aria-controls="basic-datatables"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 156.312px;">Invoice</th>
+                                                <th>Sender Name</th>
+                                                <th>PickUp Address</th>
+                                                <th>Recipient Name</th>
+                                                <th>Delivery Address</th>
+                                                <th>Recepient Phone</th>
+                                                <th>Delivery Notes</th>
+                                                <th>Items</th>
+                                                <th>Price</th>
+                                                <th>Assign Drivers</th>
+                                                <th>Invoice</th>
                                             </tr>
                                         </thead>
 
