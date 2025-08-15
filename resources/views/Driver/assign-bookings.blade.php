@@ -24,6 +24,7 @@
                                                 <th>Pickup</th>
                                                 <th>Delivery</th>
                                                 <th>Date</th>
+                                                <th>Print Delivery Docket</th>
                                                 <th>Invoice</th>
                                            </tr>
                                         </thead>
@@ -35,6 +36,12 @@
                                                     <td>{{ $booking->pickup_address }}</td>
                                                     <td>{{ $booking->delivery_address }}</td>
                                                     <td>{{ $booking->created_at->format('d M Y H:i') }}</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-success generate-label"
+                                                            data-booking='@json($booking)'>
+                                                            Print Label
+                                                        </button>
+                                                    </td>
                                                     <td>
                                                         <button class="btn btn-sm btn-primary generate-invoice" 
                                                                 data-booking='@json($booking)'>

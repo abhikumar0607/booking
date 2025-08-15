@@ -203,7 +203,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Same Day Delivery">
+                    <img src="{{ url('public/images/same.jpg') }}" alt="Same Day Delivery">
                     <div class="overlay text-center">
                         <h5>Same Day Delivery</h5>
                     </div>
@@ -212,7 +212,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Overnight Delivery">
+                    <img src="{{ url('public/images/overnight.jpg') }}" alt="Overnight Delivery">
                     <div class="overlay text-center">
                         <h5>Overnight Delivery</h5>
                     </div>
@@ -221,7 +221,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Door-to-Door Pickup">
+                    <img src="{{ url('public/images/doortodoor.jpg') }}" alt="Door-to-Door Pickup">
                     <div class="overlay text-center">
                         <h5>Door-to-Door Pickup</h5>
                     </div>
@@ -230,7 +230,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Flexible Payment Options">
+                    <img src="{{ url('public/images/flexible.jpg') }}" alt="Flexible Payment Options">
                     <div class="overlay text-center">
                         <h5>Flexible Payment Options</h5>
                     </div>
@@ -239,7 +239,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Simple Booking">
+                    <img src="{{ url('public/images/simple.jpg') }}" alt="Simple Booking">
                     <div class="overlay text-center">
                         <h5>Simple Booking</h5>
                     </div>
@@ -248,7 +248,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Safe & Secure Handling">
+                    <img src="{{ url('public/images/safe.jpg') }}" alt="Safe & Secure Handling">
                     <div class="overlay text-center">
                         <h5>Safe & Secure Handling</h5>
                     </div>
@@ -257,7 +257,7 @@
 
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg' ) }}" alt="Printable Invoices">
+                    <img src="{{ url('public/images/printable.jpg' ) }}" alt="Printable Invoices">
                     <div class="overlay text-center">
                         <h5>Printable Invoices</h5>
                     </div>

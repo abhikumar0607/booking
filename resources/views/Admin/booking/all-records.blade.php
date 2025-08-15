@@ -29,6 +29,7 @@
                                                 <th>Items</th>
                                                 <th>Price</th>
                                                 <th>Assign Drivers</th>
+                                                <th>Print Delivery Docket</th>
                                                 <th>Invoice</th>
                                             </tr>
                                         </thead>
@@ -66,6 +67,12 @@
                                                     <!-- Message div -->
                                                     <div id="driver-message-{{ $booking->id }}" class="mt-2"></div>
 
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success generate-label"
+                                                        data-booking='@json($booking)'>
+                                                        Print Label
+                                                    </button>
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm btn-primary generate-invoice"

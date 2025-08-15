@@ -70,3 +70,61 @@
             });
         });
     });
+
+
+    // Clean Professional Shipping Label / Delivery Docket
+document.addEventListener('DOMContentLoaded', function () {
+    const { jsPDF } = window.jspdf;
+
+    document.querySelectorAll('.generate-label').forEach(button => {
+        button.addEventListener('click', function () {
+            const booking = JSON.parse(this.getAttribute('data-booking'));
+            const doc = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: [100, 150] // label size
+            });
+
+            // Label Title
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.text("DELIVERY DOCKET", 50, 15, { align: "center" });
+
+            // Sender Info
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("From:", 10, 25);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Name: ${booking.sender_name}`, 10, 30);
+            doc.text(`Address: ${booking.pickup_address}`, 10, 35);
+            doc.text(`Phone: ${booking.sender_phone}`, 10, 40);
+
+            // Separator line
+            doc.setLineWidth(0.3);
+            doc.line(10, 45, 90, 45);
+
+            // Recipient Info
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("To:", 10, 50);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Name: ${booking.recipient_name}`, 10, 55);
+            doc.text(`Address: ${booking.delivery_address}`, 10, 60);
+            doc.text(`Phone: ${booking.recipient_phone}`, 10, 65);
+
+            // Optional Notes
+            if (booking.delivery_notes) {
+                doc.setFontSize(10);
+                doc.text(`Notes: ${booking.delivery_notes}`, 10, 75);
+            }
+
+            // Outer label border
+            doc.setLineWidth(0.7);
+            doc.rect(5, 10, 90, 135);
+
+            // Auto print
+            doc.autoPrint();
+            window.open(doc.output('bloburl'), '_blank');
+        });
+    });
+});
