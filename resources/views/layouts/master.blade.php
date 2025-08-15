@@ -36,8 +36,7 @@
       
    <footer class="footer" id="contact">
       <div class="container text-center">
-         <p>© RR Logistic | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
-         <p>Copyright © 2025 52 Degree LLC EIN 410167752 / Trademark TM 52 Degree PTY LTD ABN 94670590726</p>
+         <p>© RR Logistic | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>        
       </div>
    </footer>
    <!-- Bootstrap JS -->
