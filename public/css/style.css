@@ -250,7 +250,7 @@ input::placeholder {
 
   .qty-input {margin-left: -10px;width: 50px;}
 
-  button.btn.btn-outline-danger.w-100 {width: 50px !important;height: 36px;font-size: 26px;padding: 0px;display: flex;justify-content: center;align-items: baseline;}
+  button.btn.btn-outline-danger.w-100 {width: 50px !important;height: 36px;font-size: 26px;padding: 0px;display: flex;justify-content: center;align-items: center;}
 
   .py-5 {
     padding-bottom: 0!important;
