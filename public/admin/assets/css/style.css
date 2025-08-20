@@ -44,3 +44,5 @@
 .copyright {
   margin: 0 auto;
 }
+.bell-shake{animation:shake .7s ease-in-out infinite}
+  @keyframes shake{0%{transform:rotate(0)}25%{transform:rotate(-15deg)}50%{transform:rotate(15deg)}75%{transform:rotate(-10deg)}100%{transform:rotate(0)}}

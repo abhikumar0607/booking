@@ -16,5 +16,5 @@ if (!function_exists('currentUserNotifications')) {
             return Auth::user()->unreadNotifications;
         }
         return collect();
-    }
+    }    
 }

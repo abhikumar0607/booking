@@ -5,40 +5,6 @@
   <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
     <div>
       <h3 class="mb-3">Dashboard</h3>
-      @php
-    $unreadCount = auth()->user()->unreadNotifications->count();
-@endphp
-
-<div class="dropdown">
-    <button class="btn position-relative" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-bell fs-4"></i> <!-- Bootstrap Icon Bell -->
-        @if($unreadCount > 0)
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ $unreadCount }}
-            </span>
-        @endif
-    </button>
-
-    <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notificationDropdown" style="width: 300px; max-height: 400px; overflow-y:auto;">
-        <li class="fw-bold mb-2">Notifications</li>
-        @forelse(auth()->user()->unreadNotifications as $notification)
-            <li>
-                <a href="{{ route('admin.bookings.show', $notification->data['booking_id']) }}" 
-                   class="dropdown-item d-flex align-items-start">
-                    <i class="bi bi-box-seam me-2 text-primary"></i>
-                    <div>
-                        <div>{{ $notification->data['message'] }}</div>
-                        <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                    </div>
-                </a>
-            </li>
-        @empty
-            <li><span class="dropdown-item text-muted">No new notifications</span></li>
-        @endforelse
-    </ul>
-</div>
-
-
     </div>
   </div>
 

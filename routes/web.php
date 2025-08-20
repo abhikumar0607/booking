@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 Auth::routes();
+// Single notification read
+
 Route::get('/register', function () {  return redirect('/login');});
 Route::get('test-email', [App\Http\Controllers\TestEmailController::class, 'test_email']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -19,8 +21,6 @@ Route::post('/store-booking', [App\Http\Controllers\Customer\BookingController::
 Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(function () {
     // Admin Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/notifications', [App\Http\Controllers\Admin\BookingController::class, 'index'])->name('notifications.index');
-    Route::post('/notifications/mark-as-read', [App\Http\Controllers\Admin\BookingController::class, 'markAsRead'])->name('notifications.markAsRead');
     //bookings
     Route::get('/bookings', [App\Http\Controllers\Admin\BookingController::class, 'index']);
     Route::post('/booking/assign-driver', [App\Http\Controllers\Admin\BookingController::class, 'assignDriver'])->name('booking.assignDriver');

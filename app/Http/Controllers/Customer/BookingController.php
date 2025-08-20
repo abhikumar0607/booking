@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewBookingNotification;
 use App\Services\Payments\PaymentServiceInterface;
+use App\Mail\NewBookingMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\Payment;
@@ -94,6 +96,10 @@ class BookingController extends Controller
 
         $admins = User::where('user_type', 'admin')->get();
         Notification::send($admins, new NewBookingNotification($booking));
+        // Send email to all admins
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new NewBookingMail($booking));
+        }
         return back()->with('success', 'Booking created successfully!');
     }       
 
