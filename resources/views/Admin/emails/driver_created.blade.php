@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Booking Assigned</title>
+    <title>Your Driver Account Created</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         body {
@@ -20,7 +21,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .header {
-            background: #004aad;
+            background: #f1f1f1;
             padding: 20px;
             text-align: center;
         }
@@ -68,21 +69,17 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="https://rrlogistic.com.au/public/images/logo.svg" alt="RR Logistic">
+            <img src="https://rrlogistic.com.au/mail-logo.png" alt="RR Logistic">
         </div>
 
         <!-- Content -->
         <div class="content">
-            <h2>Hello {{ $driver->name }},</h2>
-            <p>A new booking has been <strong>assigned</strong> to you.</p>
+            <h2>Hello {{ $name }},</h2>
+            <p>Your driver account has been created successfully.</p>
 
             <div class="details">
-                <p><strong>Booking ID:</strong> {{ $booking->id }}</p>
-                <p><strong>Status:</strong> {{ ucfirst($booking->status) }}</p>
-                <p><strong>Pickup Address:</strong> {{ $booking->pickup_address ?? 'N/A' }}</p>
-                <p><strong>Delivery Address:</strong> {{ $booking->delivery_address ?? 'N/A' }}</p>
-                <p><strong>Customer Name:</strong> {{ $booking->sender_name ?? 'N/A' }}</p>
-                <p><strong>Customer Phone:</strong> {{ $booking->sender_phone ?? 'N/A' }}</p>
+            <p><strong>Email:</strong> {{ $email }}</p>
+            <p><strong>Password:</strong> {{ $password }}</p>
             </div>
 
             <p style="text-align:center;">

@@ -10,6 +10,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="{{ url('public/css/style.css') }}">
+      <link rel="icon" href="{{ url('public/images/fav.png') }}" type="image/x-icon"/>
    </head>
    <body>
    

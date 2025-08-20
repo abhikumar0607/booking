@@ -46,7 +46,9 @@
                                                 <td class="sorting_1">{{ $driver->name }}</td>
                                                 <td>{{ $driver->email }}</td>
                                                 <td>{{ $driver->phone }}</td>
-
+                                                <td>
+                                                    <a href="drivers/delete/{{$driver->id}}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this driver?')" >Delete</a>
+                                                </td>
                                                 @endforeach
                                                 @else
                                             <tr>

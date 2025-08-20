@@ -24,12 +24,18 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender's Name</label>
-                                <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}" required>
+                                <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}">
                                 @error('sender_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender Phone Number</label>
-                                <input type="number" name="sender_phone" class="form-control" placeholder="Sender Phone" value="{{ old('sender_phone') }}" required>
+                                <input type="tel" name="sender_phone" class="form-control"
+                                    placeholder="+61412345678"
+                                    value="{{ old('sender_phone') }}"
+                                    inputmode="numeric"
+                                    maxlength="12"
+                                    oninput="this.value=this.value.replace(/(?!^)\+/g,'').replace(/[^0-9+]/g,'')"
+                                    title="Please enter a valid 10-digit phone number">
                                 @error('sender_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
@@ -37,25 +43,32 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Pickup Address</label>
-                                <input type="text" name="pickup_address" value="{{ old('pickup_address') }}" class="form-control text-dark" placeholder="Enter pickup address" required> 
+                                <input type="text" name="pickup_address" value="{{ old('pickup_address') }}" class="form-control text-dark" placeholder="Enter pickup address">
                                 @error('pickup_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
-                                <label class="form-label text-dark small fw-bold">Recipient's Name</label>
-                                <input type="text" name="recipient_name" class="form-control" placeholder="Recipient's Name" value="{{ old('recipient_name') }}" required>
-                                @error('recipient_name') <small class="text-danger">{{ $message }}</small> @enderror
+                                <label class="form-label text-dark small fw-bold">Delivery Address</label>
+                                <input type="text" name="delivery_address" value="{{ old('delivery_address') }}" class="form-control text-dark" placeholder="Enter delivery address">
+                                @error('delivery_address') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
+
                             <div class="col">
-                                <label class="form-label text-dark small fw-bold">Delivery Address</label>
-                                <input type="text" name="delivery_address" value="{{ old('delivery_address') }}" class="form-control text-dark" placeholder="Enter delivery address" required>
-                                @error('delivery_address') <small class="text-danger">{{ $message }}</small> @enderror
+                                <label class="form-label text-dark small fw-bold">Recipient's Name</label>
+                                <input type="text" name="recipient_name" class="form-control" placeholder="Recipient's Name" value="{{ old('recipient_name') }}">
+                                @error('recipient_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark small fw-bold">Recipient's Phone</label>
-                                <input type="number" name="recipient_phone" class="form-control" placeholder="Recipient Phone" value="{{ old('recipient_phone') }}" required>
+                                <input type="tel" name="recipient_phone" class="form-control"
+                                    placeholder="+61412345678"
+                                    value="{{ old('recipient_phone') }}"
+                                    inputmode="numeric"
+                                    maxlength="12"
+                                    oninput="this.value=this.value.replace(/(?!^)\+/g,'').replace(/[^0-9+]/g,'')"
+                                    title="Please enter a valid 10-digit phone number">
                                 @error('recipient_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
@@ -65,6 +78,7 @@
                             <textarea name="delivery_notes" class="form-control" placeholder="Delivery Notes">{{ old('delivery_notes') }}</textarea>
                             @error('delivery_notes') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label text-dark small fw-bold">Select package style</label>
                             <div class="container py-3">
@@ -86,44 +100,44 @@
                                     </div>
                                 </div>
                                 <div id="packageList"></div>
-                            </div>                   
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                                <label class="form-label text-dark small fw-bold">Choose payment method</label>
-                                <div>
-                                    <!-- Stripe Option -->
-                                    <label class="text-dark small" for="payment_stripe">Stripe</label>
-                                    <input type="radio" name="payment_method" id="payment_stripe" value="Stripe" 
-                                        {{ old('payment_method') == 'Stripe' ? 'checked' : '' }}>     
+                            <label class="form-label text-dark small fw-bold">Choose payment method</label>
+                            <div>
+                                <!-- Stripe Option -->
+                                <label class="text-dark small" for="payment_stripe">Stripe</label>
+                                <input type="radio" name="payment_method" id="payment_stripe" value="Stripe"
+                                    {{ old('payment_method') == 'Stripe' ? 'checked' : '' }}>
 
-                                    <div id="stripe-card-section" style="display:none;">
-                                        <div id="card-element" class="form-control mb-3"></div>
-                                        <div id="card-errors" role="alert" class="text-danger small mt-1"></div>  
-                                    </div>
-
-                                    <!-- COD Option -->
-                                    <label class="text-dark small" for="payment_cod">Cash on Delivery</label>
-                                    <input type="radio" name="payment_method" id="payment_cod" value="Cash on Delivery" 
-                                        {{ old('payment_method') == 'Cash on Delivery' ? 'checked' : '' }}>
-
-                                    @error('payment_method') 
-                                        <br><small class="text-danger">{{ $message }}</small> 
-                                    @enderror
+                                <div id="stripe-card-section" style="display:none;">
+                                    <div id="card-element" class="form-control mb-3"></div>
+                                    <div id="card-errors" role="alert" class="text-danger small mt-1"></div>
                                 </div>
-                            </div>
 
+                                <!-- COD Option -->
+                                <label class="text-dark small" for="payment_cod">Cash on Delivery</label>
+                                <input type="radio" name="payment_method" id="payment_cod" value="Cash on Delivery"
+                                    {{ old('payment_method') == 'Cash on Delivery' ? 'checked' : '' }}>
+
+                                @error('payment_method')
+                                <br><small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div id="totalPrice" class="mb-3 fw-bold text-dark">Total Price: $0</div>
                         <input type="hidden" name="stripe_token" id="stripe_token">
                         <button type="submit" class="btn btn-orange w-100">Submit Booking</button>
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
 
+                        @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
                     </form>
+
                 </div>
             </div>
         </div>

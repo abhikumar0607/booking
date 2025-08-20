@@ -22,6 +22,7 @@
         <div class="scroll-wrapper sidebar-wrapper scrollbar scrollbar-inner" style="position: relative;"><div class="sidebar-wrapper scrollbar scrollbar-inner scroll-content scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 355px;">
           <div class="sidebar-content">
           <ul class="nav nav-secondary">
+            
           <li class="nav-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
             <a href="{{ url('admin/dashboard') }}">
               <i class="fas fa-home"></i>

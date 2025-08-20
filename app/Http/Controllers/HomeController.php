@@ -26,8 +26,8 @@ class HomeController extends Controller
         $type = auth()->user()->user_type;
 
         return match ($type) {
-            'Admin' => redirect()->to('admin/dashboard'),
-            'Driver' => redirect()->to('driver/dashboard'),
+            'Admin' => redirect()->to('admin/bookings'),
+            'Driver' => redirect()->to('driver/assign-bookings'),
             default => redirect()->to('/booking')
         };
     }

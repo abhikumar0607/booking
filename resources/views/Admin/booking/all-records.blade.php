@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">All records</h4>
+                    <h4 class="card-title">All Bookings</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -31,6 +31,7 @@
                                                 <th>Assign Drivers</th>
                                                 <th>Print Delivery Docket</th>
                                                 <th>Invoice</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
 
@@ -79,6 +80,9 @@
                                                         data-booking='@json($booking)'>
                                                         Download Invoice
                                                     </button>
+                                                </td>
+                                                <td>
+                                                    <a href="booking/delete/{{ $booking->id }}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</a>
                                                 </td>
                                             </tr>
                                             @endforeach

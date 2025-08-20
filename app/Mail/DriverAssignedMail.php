@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Booking;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,15 +11,23 @@ class DriverAssignedMail extends Mailable
     use Queueable, SerializesModels;
 
     public $booking;
+    public $driver;
 
-    public function __construct(Booking $booking)
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($booking, $driver)   // <-- dono parameters accept karo
     {
         $this->booking = $booking;
+        $this->driver = $driver;   // <-- yaha assign karo
     }
 
+    /**
+     * Build the message.
+     */
     public function build()
     {
-        return $this->subject('Driver Assigned to Your Booking')
-                    ->view('Admin.emails.driver_assigned'); // create this blade view next
+        return $this->subject('New Booking Assigned')
+                    ->view('Admin.emails.driver_assigned');
     }
 }

@@ -3,8 +3,10 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewBookingNotification;
 use App\Services\Payments\PaymentServiceInterface;
-
+use App\Models\User;
 use App\Models\Booking;
 use App\Models\Payment;
 class BookingController extends Controller
@@ -23,61 +25,76 @@ class BookingController extends Controller
     }
     public function store_data(Request $request)
     {
-        $data = $request->all();
-    
-        // Filter and format item types
-        $filteredItemTypes = array_filter($data['item_type'] ?? [], fn($type) => !empty($type));
+        //Validate Inputs
+        $validated = $request->validate([
+            'sender_name'      => 'required|string|max:255',
+            'sender_phone'     => ['required', 'regex:/^(\+61\d{9,12}|04\d{8,11}|61\d{9,12})$/'], 
+            'pickup_address'   => 'required|string|max:500',
+            'recipient_name'   => 'required|string|max:255',
+            'recipient_phone'  => ['required', 'regex:/^(\+61\d{9,12}|04\d{8,11}|61\d{9,12})$/'], 
+            'delivery_address' => 'required|string|max:500',
+            'delivery_notes'   => 'nullable|string|max:1000',
+            'item_type'        => 'required|array|min:1',
+            'item_type.*'      => 'nullable|string',
+            'number_of_items'  => 'nullable|array',
+            'number_of_items.*'=> 'nullable|integer|min:1',
+            'payment_method'   => 'required|in:Stripe,Cash on Delivery',
+            'total_price'      => 'required|numeric|min:1', // ✅ FIX: price ko validate kiya
+        ]);
+
+        //Format package data
+        $filteredItemTypes = array_filter($validated['item_type'] ?? [], fn($type) => !empty($type));
         $itemTypeString = implode(', ', $filteredItemTypes);
-        $totalPrice = $data['total_price'] ?? 0;
-    
-        if ($request->payment_method === 'Stripe') {
-            // Call payment service
+        $totalPrice = $validated['total_price'];
+
+        //Payment Logic
+        if ($validated['payment_method'] === 'Stripe') {
             $paymentResult = $this->paymentService->pay([
                 'amount'      => $totalPrice,
                 'currency'    => 'aud',
                 'description' => 'Booking payment for ' . $itemTypeString,
-                'sender_name' => $data['sender_name'],
+                'sender_name' => $validated['sender_name'],
             ]);
-    
+
             if (!$paymentResult['success']) {
-                return back()->withErrors(['payment' => 'Payment failed: ' . $paymentResult['message']]);
+                return back()->withErrors(['payment' => 'Payment failed: ' . $paymentResult['message']])
+                            ->withInput();
             }
-    
-            // Payment success — create booking with Paid status
+
             $paymentStatus = 'Paid';
         } else {
-            // For other payment methods like COD
             $paymentStatus = 'Pending';
             $paymentResult = [
                 'transaction_id' => null,
             ];
         }
-    
-        // Create booking
+
+        //Create Booking
         $booking = Booking::create([
-            'sender_name'      => $data['sender_name'],
-            'sender_phone'     => $data['sender_phone'],
-            'pickup_address'   => $data['pickup_address'],
-            'recipient_name'   => $data['recipient_name'],
-            'recipient_phone'  => $data['recipient_phone'],
-            'delivery_address' => $data['delivery_address'],
-            'delivery_notes'   => $data['delivery_notes'] ?? null,
+            'sender_name'      => $validated['sender_name'],
+            'sender_phone'     => $validated['sender_phone'],
+            'pickup_address'   => $validated['pickup_address'],
+            'recipient_name'   => $validated['recipient_name'],
+            'recipient_phone'  => $validated['recipient_phone'],
+            'delivery_address' => $validated['delivery_address'],
+            'delivery_notes'   => $validated['delivery_notes'] ?? null,
             'item_type'        => $itemTypeString,
-            'number_of_items'  => array_sum($data['number_of_items'] ?? []),
+            'number_of_items'  => array_sum($validated['number_of_items'] ?? []),
             'price'            => $totalPrice,
             'payment_status'   => $paymentStatus,
         ]);
-    
-        // Create payment record
+
+        //Save Payment Record
         Payment::create([
             'booking_id'     => $booking->id,
-            'payment_method' => $request->payment_method,
+            'payment_method' => $validated['payment_method'],
             'payment_status' => $paymentStatus,
             'transaction_id' => $paymentResult['transaction_id'] ?? null,
         ]);
-    
+
+        $admins = User::where('user_type', 'admin')->get();
+        Notification::send($admins, new NewBookingNotification($booking));
         return back()->with('success', 'Booking created successfully!');
-    }
-        
+    }       
 
 }

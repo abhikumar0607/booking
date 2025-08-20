@@ -8,3 +8,13 @@ if (!function_exists('currentUser')) {
         return Auth::user();
     }
 }
+
+if (!function_exists('currentUserNotifications')) {
+    function currentUserNotifications()
+    {
+        if (Auth::check()) {
+            return Auth::user()->unreadNotifications;
+        }
+        return collect();
+    }
+}

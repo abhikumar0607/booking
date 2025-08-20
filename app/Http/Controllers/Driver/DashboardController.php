@@ -10,17 +10,15 @@ class DashboardController extends Controller
 {
     //function for dashboard controller
     public function dashboard_driver(){
-        return view('Driver.index');
+        $driverId = Auth::id();
+        $bookings = Booking::where('driver_id', $driverId)->orderBy('created_at', 'desc')->get();
+        return view('Driver.index', compact('bookings'));
     }
     //function for view all assigned bookings
     public function assign_bookings()
     {
-        $driverId = Auth::id(); // logged in driver ID
-
-        $bookings = Booking::where('driver_id', $driverId)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
-
+        $driverId = Auth::id();
+        $bookings = Booking::where('driver_id', $driverId)->orderBy('created_at', 'desc')->get();
         return view('driver.assign-bookings', compact('bookings'));
     }
 }

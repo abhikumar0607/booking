@@ -30,7 +30,7 @@ class BookingController extends Controller
                     $query->where('user_type', 'Driver');
                 }),
             ],
-        ]);
+        ]);        
 
         // Now safe to assign
         $booking = Booking::find($request->booking_id);
@@ -48,10 +48,17 @@ class BookingController extends Controller
 
         $driver = User::find($request->driver_id);
         if ($driver && $driver->email) {
-            Mail::to($driver->email)->send(new DriverAssignedMail($booking));
+            Mail::to($driver->email)->send(new DriverAssignedMail($booking, $driver));
         }
 
         return response()->json(['success' => true]);
+    }
+
+    //function to delete booking
+    public function delete_booking($id)
+    {
+        Booking::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Booking deleted successfully!');
     }
     
 }
