@@ -28,6 +28,7 @@ class NewBookingNotification extends Notification
             'booking_id' => $this->booking->id,
             'customer_name' => $this->booking->sender_name,
             'message' => 'New booking received from ' . $this->booking->sender_name,
+            'url' => url('/admin/bookings/'),
         ];
     }
 

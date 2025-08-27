@@ -42,30 +42,29 @@
             aria-labelledby="notifDropdown" style="width:400px;max-height:600px;overflow-y:auto;">
             @forelse($unreads as $notification)
             <li class="dropdown-item">
-              <form action="{{ route('notifications.read', $notification->id) }}" method="POST">
+            <li class="dropdown-item">
+              <form id="notif-form-{{ $notification->id }}" 
+                    action="{{ route('admin.notifications.read', $notification->id) }}" 
+                    method="POST" style="display: none;">
                 @csrf
-                <button type="submit" class="btn btn-link text-start p-0 w-100">
-                  🔔 {{ $notification->data['message'] ?? 'No message found' }}
-                  <br>
-                  <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                </button>
               </form>
+
+              <a href="{{ url('/admin/bookings') }}"
+                onclick="event.preventDefault();
+                          document.getElementById('notif-form-{{ $notification->id }}').submit();
+                          setTimeout(() => { window.location.href='{{ url('/admin/bookings') }}'; }, 300);">
+                🔔 {{ $notification->data['message'] ?? 'No message found' }}
+                <br>
+                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+              </a>
             </li>
+
             <hr class="dropdown-divider m-0">
             @empty
             <li class="dropdown-item text-center text-muted py-3">
               <i class="fa-regular fa-bell-slash"></i> No new notifications
             </li>
-            @endforelse
-
-            @if($unreads->count())
-            <li class="dropdown-item text-center">
-              <form action="{{ route('notifications.readAll') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-sm btn-outline-secondary">Mark all as read</button>
-              </form>
-            </li>
-            @endif
+            @endforelse            
           </ul>
         </li>
         </li>

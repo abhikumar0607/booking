@@ -8,10 +8,19 @@
                 <h1 class="text-start ">Book a Pickup in <span style="color:#ff7a00">Seconds!</span></h1>
                 <p>Simple, fast, and mobile-friendly parcel booking. Same Day or Overnight delivery, without the hassle.</p>
                 <div class="partner-logos text-center mt-4">
-                    <div class="d-flex justify-content-start align-items-center" style="height:100px;">
-                        <img src="{{ url('public/images/4.png') }}" alt="Alok Industries Limited" style="height:100px; width: 500px;">
+                    @foreach($logos->chunk(3) as $chunk) {{-- Split logos 3 per row --}}
+                    <div class="row mb-3 justify-content-center align-items-center" style="height:100px;">
+                        @foreach($chunk as $logo)
+                        <div class="col-md-4">
+                            <img src="{{ url('public/images/logos/' . $logo->logo) }}"
+                                alt="brand-logo"
+                                class="img-fluid">
+                        </div>
+                        @endforeach
                     </div>
-                    <h5 class="fw-bold mt-5 text-start" style="color: white;text-decoration: underline;text-decoration-thickness: 0.2px;text-decoration-color: #878fa0;">
+                    @endforeach
+                    <h5 class="fw-bold mt-5 text-start"
+                        style="color: white; text-decoration: underline; text-decoration-thickness: 0.2px; text-decoration-color: #878fa0;">
                         Organic Certified and Conventional Fabrics
                     </h5>
                 </div>
@@ -19,7 +28,7 @@
             <div class="col-lg-5">
                 <div class="booking-form">
                     <h5 class="fw-bold mb-3 text-dark text-center">Instant Quote. Book Now and Save!</h5>
-                    <form id="booking-form" action="{{ route('store.booking') }}" method="POST">
+                    <form id="booking-form" action="{{ route('store.booking') }}" method="POST" >
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
@@ -85,14 +94,12 @@
                                 <div class="row g-2 mb-2 align-items-center text-dark">
                                     <div class="col-8">
                                         <select name="item_type[]" class="form-select text-dark bform" id="packageSelect">
-                                            <option value="">Select package style</option>
-                                            <option value="400">Skid / $400 AUD</option>
-                                            <option value="350">Pallet / $350 AUD</option>
-                                            <option value="45">Tube / $45 AUD</option>
-                                            <option value="45">Crate / $45 AUD</option>
-                                            <option value="40">Satchel / $40 AUD</option>
-                                            <option value="35">Bag / $35 AUD</option>
-                                            <option value="30">Envelope / $30 AUD</option>
+                                        <option value="">Select package style</option>
+                                        @foreach($packages as $package)
+                                            <option value="{{ $package->price }}">
+                                                {{ $package->name }} / ${{ $package->price }} AUD
+                                            </option>
+                                        @endforeach
                                         </select>
                                     </div>
                                     <div class="col-4">
@@ -129,7 +136,7 @@
 
                         <div id="totalPrice" class="mb-3 fw-bold text-dark">Total Price: $0</div>
                         <input type="hidden" name="stripe_token" id="stripe_token">
-                        <button type="submit" class="btn btn-orange w-100">Submit Booking</button>
+                        <button type="submit" class="btn btn-orange w-100" id="submitBtn" >Submit Booking</button>
 
                         @if(session('success'))
                         <div class="alert alert-success">
@@ -150,7 +157,7 @@
         <div class="row align-items-center">
             <!-- Image -->
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="{{ url('public/images/banner.png') }}" class="img-fluid rounded" alt="Parcel Delivery">
+                <img src="{{ $howItWorks->image ? url('public/' . $howItWorks->image) : url('public/images/banner.png') }}" class="img-fluid rounded" alt="Image">
             </div>
 
             <!-- Text Content -->
@@ -162,35 +169,35 @@
 
                 <!-- Heading -->
                 <h3>
-                    Send Parcels in Minutes –<br> No Sign-Up, No Delay
+                   {{ $howItWorks->title ?? 'How It Works' }}
                 </h3>
 
                 <!-- Paragraph -->
                 <p class="mt-4 mb-5 lh-lg" style="color: #E8E9ED;">
-                    Booking a delivery with RR Logistic is quick, easy, and mobile-friendly. Simply provide pickup and drop-off details, select the item type and delivery speed, and you're done. We’ll pick it up, deliver it safely, and you don’t even need an account.
+                    {{ $howItWorks->description ?? 'Booking a parcel delivery with us is quick and easy. Just follow these simple steps to get your items on their way.' }}
                 </p>
 
                 <!-- Feature List -->
                 <div class="row mt-4">
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
-                        <strong>Fill the Booking Form</strong>
-                        <p class="small mt-3  fw-light">Enter sender and recipient details, delivery type, and item info.</p>
+                        <strong> {{ $howItWork->section1_title ?? 'Fill the Booking Form' }}  </strong>
+                        <p class="small mt-3  fw-light">{{ $howItWorks->section1_desc ?? 'Enter sender and recipient details, delivery type, and item info.' }}</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon1.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
-                        <strong>Choose Your Price Option</strong>
-                        <p class="small  mt-3 fw-light">Pick from 6 fixed pricing tiers based on your item type.</p>
+                        <strong>{{ $howItWork->section2_title ?? 'Choose Your Price Option' }}</strong>
+                        <p class="small  mt-3 fw-light">{{ $howItWorks->section2_desc ?? 'Pick from 6 fixed pricing tiers based on your item type.' }}</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon2.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
-                        <strong>Choose Payment Method</strong>
-                        <p class="small mt-3  fw-light">Pay with PayPal or select Cash on Delivery.</p>
+                        <strong>{{ $howItWorks->section3_title ?? 'Choose Payment Method' }}</strong>
+                        <p class="small mt-3  fw-light">{{ $howItWorks->section3_desc ?? 'Pay with PayPal or select Cash on Delivery.' }}</p>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <img src="{{ url('public/images/icon3.svg') }}" alt="Booking Icon" width="24" height="24" class="me-2">
-                        <strong>Submit &amp; Done</strong>
-                        <p class="small mt-3  fw-light">We’ll take care of the rest! Your delivery details are sent directly to our dispatch team.</p>
+                        <strong>{{ $howItWorks->section4_title ?? 'Submit &amp; Done' }}</strong>
+                        <p class="small mt-3  fw-light">{{ $howItWorks->section4_desc ?? 'We’ll take care of the rest! Your delivery details are sent directly to our dispatch team.' }}</p>
                     </div>
                 </div>
             </div>
@@ -206,77 +213,16 @@
         <p class="text-center text-white mb-5">Simple, fast, and reliable delivery services</p>
         <div class="row g-4">
             <!-- Service Item -->
-            <div class="col-12 col-sm-6 col-lg-3">
+            @foreach($services as $service)
+            <div class="col-12 col-sm-6 col-lg-3">               
                 <div class="service-card">
-                    <img src="{{ url('public/images/service.jpg') }}" alt="Parcel Delivery">
+                <img src="{{ $service->image ? url('public/images/services/' . $service->image) : url('public/images/services/service.jpg') }}" alt="Parcel Delivery">
                     <div class="overlay text-center">
-                        <h5>Parcel Delivery</h5>
+                        <h5>{{ $service->name ?? '' }}</h5>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/same.jpg') }}" alt="Same Day Delivery">
-                    <div class="overlay text-center">
-                        <h5>Same Day Delivery</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/overnight.jpg') }}" alt="Overnight Delivery">
-                    <div class="overlay text-center">
-                        <h5>Overnight Delivery</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/doortodoor.jpg') }}" alt="Door-to-Door Pickup">
-                    <div class="overlay text-center">
-                        <h5>Door-to-Door Pickup</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/flexible.jpg') }}" alt="Flexible Payment Options">
-                    <div class="overlay text-center">
-                        <h5>Flexible Payment Options</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/simple.jpg') }}" alt="Simple Booking">
-                    <div class="overlay text-center">
-                        <h5>Simple Booking</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/safe.jpg') }}" alt="Safe & Secure Handling">
-                    <div class="overlay text-center">
-                        <h5>Safe & Secure Handling</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="{{ url('public/images/printable.jpg' ) }}" alt="Printable Invoices">
-                    <div class="overlay text-center">
-                        <h5>Printable Invoices</h5>
-                    </div>
-                </div>
-            </div>
+                </div>               
+            </div>   
+            @endforeach            
         </div>
     </div>
 </section>

@@ -8,8 +8,8 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="card-title mb-0">All records</h4>
-                <a href="{{ url('admin/add-driver') }}" class="btn btn-primary">Add Driver</a>
+                <h4 class="card-title mb-0">All Packages</h4>
+                <a href="{{ url('admin/add-package') }}" class="btn btn-primary">Add Package</a>
             </div>
 
                 <div class="card-body">
@@ -25,35 +25,36 @@
                                                 <th class="sorting_asc" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 242.688px;">Name</th>
+                                                    style="width: 242.688px;">Package Name</th>
 
                                                 <th class="sorting_asc" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 242.688px;">Email</th>
+                                                    style="width: 242.688px;">Package Price</th>
 
                                                 <th class="sorting_asc" tabindex="0" aria-controls="basic-datatables"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 242.688px;">Phone</th>
+                                                    style="width: 242.688px;">Status</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if(count($drivers) >= 1)
-                                            @foreach($drivers as $driver)
+                                            @if(count($packages) >= 1)
+                                            @foreach($packages as $package)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">{{ $driver->name }}</td>
-                                                <td>{{ $driver->email }}</td>
-                                                <td>{{ $driver->phone }}</td>
+                                                <td class="sorting_1">{{ $loop->iteration }}</td>
+                                                <td class="sorting_1">{{ $package->name }}</td>
+                                                <td class="sorting_1">{{ $package->price }}</td>
+                                                <td>{{ $package->status }}</td>
                                                 <td>
-                                                    <a href="drivers/delete/{{$driver->id}}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this driver?')" >Delete</a> |
-                                                    <a href="driver/edit/{{$driver->id}}" class="delt-cr" >Edit</a>
+                                                    <a href="package/delete/{{$package->id}}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this driver?')" >Delete</a> |
+                                                    <a href="package/edit/{{$package->id}}" class="edit-cr" >Edit</a>
                                                 </td>
                                                 @endforeach
                                                 @else
                                             <tr>
-                                                <td colspan="7">No Drivers found</td>
+                                                <td colspan="7">No Logos found</td>
                                             </tr>
                                             @endif
                                         </tbody>

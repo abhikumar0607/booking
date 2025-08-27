@@ -41,6 +41,30 @@
               <p>Drivers</p>
             </a>            
           </li>
+          <li class="nav-item {{ request()->is('admin/add-logos*') ? 'active' : '' }}">
+            <a href="{{ url('admin/all-logos') }}">
+              <i class="fa-solid fa-image"></i>
+              <p>Logos</p>
+            </a>            
+          </li>            
+          <li class="nav-item {{ request()->is('admin/add-service*') ? 'active' : '' }}">
+            <a href="{{ url('admin/all-services') }}">
+              <i class="fa-solid fa-compass"></i>
+              <p>Services</p>
+            </a>            
+          </li>  
+          <li class="nav-item {{ request()->is('admin/all-packages*') ? 'active' : '' }}">
+            <a href="{{ url('admin/all-packages') }}">
+              <i class="fas fa-calendar "></i>
+              <p>Packages</p>
+            </a>            
+          </li>   
+          <li class="nav-item {{ request()->is('admin/all-howitworks*') ? 'active' : '' }}">
+            <a href="{{ url('admin/all-howitworks') }}">
+              <i class="fas fa-calendar "></i>
+              <p>How It works</p>
+            </a>            
+          </li>               
           </div>
         </div><div class="scroll-element scroll-x scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 202px; top: 0px;"></div></div></div></div>
       </div>
