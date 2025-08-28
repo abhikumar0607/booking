@@ -41,6 +41,22 @@
                                                             data-booking='@json($booking)'>
                                                             Print Label
                                                         </button>
+                                                        <form action="{{ route('driver.bookings.updateStatus', $booking->id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="on_truck">
+                                                            <button type="submit" class="btn btn-warning btn-sm"
+                                                                {{ $booking->on_truck_at ? 'disabled' : '' }}>
+                                                                On Truck
+                                                            </button>
+                                                        </form>
+                                                        <form action="{{ route('driver.bookings.updateStatus', $booking->id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="delivered">
+                                                            <button type="submit" class="btn btn-success btn-sm"
+                                                                {{ $booking->delivered_at ? 'disabled' : '' }}>
+                                                                Delivered
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-sm btn-primary generate-invoice" 

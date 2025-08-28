@@ -27,6 +27,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
     Route::get('/bookings', [App\Http\Controllers\Admin\BookingController::class, 'index']);
     Route::post('/booking/assign-driver', [App\Http\Controllers\Admin\BookingController::class, 'assignDriver'])->name('booking.assignDriver');
     Route::get('/booking/delete/{id}', [App\Http\Controllers\Admin\BookingController::class, 'delete_booking'])->name('booking.delete');
+    Route::get('/booking/edit/{id}', [App\Http\Controllers\Admin\BookingController::class, 'edit_booking'])->name('booking.edit');
+    Route::post('/booking/update/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update_booking'])->name('booking.update');
     //drivers
     Route::get('/add-driver', [App\Http\Controllers\Driver\DriverController::class, 'add_new_driver']);
     Route::post('/submit-driver', [App\Http\Controllers\Driver\DriverController::class, 'submit_driver'])->name('driver.submit.driver');
@@ -66,4 +68,5 @@ Route::prefix('driver')->name('driver.')->middleware(['auth', 'driver', \App\Htt
     // Driver Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Driver\DashboardController::class, 'dashboard_driver']);
     Route::get('/assign-bookings', [App\Http\Controllers\Driver\DashboardController::class, 'assign_bookings']);
+    Route::post('/bookings/{booking}/update-status', [App\Http\Controllers\Driver\DashboardController::class, 'updateStatus'])->name('bookings.updateStatus');
 });

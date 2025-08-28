@@ -42,21 +42,22 @@
             aria-labelledby="notifDropdown" style="width:400px;max-height:600px;overflow-y:auto;">
             @forelse($unreads as $notification)
             <li class="dropdown-item">
-            <li class="dropdown-item">
-              <form id="notif-form-{{ $notification->id }}" 
-                    action="{{ route('admin.notifications.read', $notification->id) }}" 
-                    method="POST" style="display: none;">
+              <form id="notif-form-{{ $notification->id }}"
+                action="{{ route('admin.notifications.read', $notification->id) }}"
+                method="POST" style="display: none;">
                 @csrf
               </form>
 
               <a href="{{ url('/admin/bookings') }}"
+                data-url="{{ url('/admin/bookings') }}"
                 onclick="event.preventDefault();
                           document.getElementById('notif-form-{{ $notification->id }}').submit();
-                          setTimeout(() => { window.location.href='{{ url('/admin/bookings') }}'; }, 300);">
+                          setTimeout(() => { window.location.href=this.dataset.url; }, 300);">
                 🔔 {{ $notification->data['message'] ?? 'No message found' }}
                 <br>
                 <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
               </a>
+
             </li>
 
             <hr class="dropdown-divider m-0">
@@ -64,7 +65,7 @@
             <li class="dropdown-item text-center text-muted py-3">
               <i class="fa-regular fa-bell-slash"></i> No new notifications
             </li>
-            @endforelse            
+            @endforelse
           </ul>
         </li>
         </li>

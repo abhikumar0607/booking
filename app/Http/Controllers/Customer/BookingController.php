@@ -30,10 +30,12 @@ class BookingController extends Controller
         //Validate Inputs
         $validated = $request->validate([
             'sender_name'      => 'required|string|max:255',
-            'sender_phone'     => ['required', 'regex:/^(\+61\d{9,12}|04\d{8,11}|61\d{9,12})$/'], 
+            'sender_state_code' => 'required|string|in:"02","03","04","07","08","1300","1800"',
+            'sender_phone'     => ['required', 'regex:/^[0-9]{6,15}$/'], 
             'pickup_address'   => 'required|string|max:500',
+            'recipient_state_code' => 'required|string|in:"02","03","04","07","08","1300","1800"',
             'recipient_name'   => 'required|string|max:255',
-            'recipient_phone'  => ['required', 'regex:/^(\+61\d{9,12}|04\d{8,11}|61\d{9,12})$/'], 
+            'recipient_phone'  => ['required', 'regex:/^[0-9]{6,15}$/'], 
             'delivery_address' => 'required|string|max:500',
             'delivery_notes'   => 'nullable|string|max:1000',
             'item_type'        => 'required|array|min:1',
@@ -41,9 +43,10 @@ class BookingController extends Controller
             'number_of_items'  => 'nullable|array',
             'number_of_items.*'=> 'nullable|integer|min:1',
             'payment_method'   => 'required|in:Stripe,Cash on Delivery',
-            'total_price'      => 'required|numeric|min:1', // ✅ FIX: price ko validate kiya
+            'total_price'      => 'required|numeric|min:1', 
         ]);
-
+        $senderPhone = $validated['sender_state_code'] . $validated['sender_phone']; 
+        $recipientPhone = $validated['recipient_state_code'] . $validated['recipient_phone'];
         //Format package data
         $filteredItemTypes = array_filter($validated['item_type'] ?? [], fn($type) => !empty($type));
         $itemTypeString = implode(', ', $filteredItemTypes);
@@ -74,10 +77,10 @@ class BookingController extends Controller
         //Create Booking
         $booking = Booking::create([
             'sender_name'      => $validated['sender_name'],
-            'sender_phone'     => $validated['sender_phone'],
+            'sender_phone'     => $senderPhone,
             'pickup_address'   => $validated['pickup_address'],
             'recipient_name'   => $validated['recipient_name'],
-            'recipient_phone'  => $validated['recipient_phone'],
+            'recipient_phone'  => $recipientPhone,
             'delivery_address' => $validated['delivery_address'],
             'delivery_notes'   => $validated['delivery_notes'] ?? null,
             'item_type'        => $itemTypeString,

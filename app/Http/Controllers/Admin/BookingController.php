@@ -19,6 +19,38 @@ class BookingController extends Controller
         $drivers = User::where('user_type', 'driver')->get();
         return view('Admin.booking.all-records', compact('bookings', 'drivers'));
     }
+
+    // Show edit form
+    public function edit_booking($id)
+    {
+        $booking = Booking::findOrFail($id);
+        return view('Admin.booking.edit-booking', compact('booking'));
+    }
+
+    // Handle form submission
+    public function update_booking(Request $request, $id)
+    {
+        $request->validate([
+            'sender_name'      => 'required|string|max:255',
+            'sender_phone'     => 'required|string|max:20',
+            'pickup_address'   => 'required|string|max:500',
+            'recipient_name'   => 'required|string|max:255',
+            'recipient_phone'  => 'required|string|max:20',
+            'delivery_address' => 'required|string|max:500',
+            'delivery_notes'   => 'nullable|string|max:500',         
+            'payment_status'   => 'required|in:Pending,Paid,Failed',
+        ]);
+        $booking = Booking::findOrFail($id);
+        $is_updated = $booking->update($request->all());
+        if($is_updated){
+            return redirect()->back()->with('success', 'Booking Updated Successfully!');
+           
+        }else{
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
+        
+    }
+    
     //function to assign driver to booking
     public function assignDriver(Request $request)
     {
@@ -60,5 +92,7 @@ class BookingController extends Controller
         Booking::where('id', $id)->delete();
         return redirect()->back()->with('success', 'Booking deleted successfully!');
     }
+
     
+       
 }

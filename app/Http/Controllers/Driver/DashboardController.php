@@ -21,4 +21,23 @@ class DashboardController extends Controller
         $bookings = Booking::where('driver_id', $driverId)->orderBy('created_at', 'desc')->get();
         return view('driver.assign-bookings', compact('bookings'));
     }
+
+    public function updateStatus(Request $request, Booking $booking)
+    {
+        // ensure only assigned driver can update
+        if ($booking->driver_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+    
+        if ($request->status === 'on_truck') {
+            $booking->on_truck_at = now();
+        } elseif ($request->status === 'delivered') {
+            $booking->delivered_at = now();
+        }
+    
+        $booking->save();
+    
+        return back()->with('success', 'Booking status updated successfully.');
+    }
+    
 }

@@ -31,6 +31,7 @@
                                                 <th>Assign Drivers</th>
                                                 <th>Print Delivery Docket</th>
                                                 <th>Invoice</th>
+                                                <th>Booking Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -64,10 +65,7 @@
                                                         </option>
                                                         @endforeach
                                                     </select>
-
-                                                    <!-- Message div -->
                                                     <div id="driver-message-{{ $booking->id }}" class="mt-2"></div>
-
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm btn-success generate-label"
@@ -82,13 +80,25 @@
                                                     </button>
                                                 </td>
                                                 <td>
-                                                    <a href="booking/delete/{{ $booking->id }}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</a>
+                                                    @if($booking->on_truck_at)
+                                                    <span class="badge badge-warning">On Truck: {{ \Carbon\Carbon::parse($booking->on_truck_at)->format('d M Y H:i') }}</span><br>
+                                                    @endif
+                                                    @if($booking->delivered_at)
+                                                    <span class="badge badge-success">Delivered: {{ \Carbon\Carbon::parse($booking->delivered_at)->format('d M Y H:i') }}</span>
+                                                    @endif
+                                                    @if(!$booking->on_truck_at && !$booking->delivered_at)
+                                                    <span class="badge badge-secondary">Pending</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="booking/delete/{{ $booking->id }}" class="delt-cr" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</a> |
+                                                    <a href="booking/edit/{{ $booking->id }}" class="delt-cr">Edit</a>
                                                 </td>
                                             </tr>
                                             @endforeach
                                             @else
                                             <tr>
-                                                <td colspan="9">No bookings found</td>
+                                                <td colspan="12">No bookings found</td>
                                             </tr>
                                             @endif
                                         </tbody>
