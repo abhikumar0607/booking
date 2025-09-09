@@ -49,12 +49,14 @@
                                                 <td>{{ $booking->item_type }}</td>
                                                 <td>{{ $booking->price }}</td>
                                                 <td>
-                                                    <select class="form-control driver-select" name="driver_id" data-booking-id="{{ $booking->id }}" {{ $booking->driver_id ? 'disabled' : '' }}>
-                                                        <option value="">Select Driver</option>
-                                                        @foreach($drivers as $driver)
+                                                <select class="form-control driver-select" 
+                                                        name="driver_id" 
+                                                        data-booking-id="{{ $booking->id }}">
+                                                    <option value="">Select Driver</option>
+                                                    @foreach($drivers as $driver)
                                                         @php
-                                                        $isOnline = $driver->last_activity && \Carbon\Carbon::parse($driver->last_activity)->gt(now()->subMinutes(2));
-                                                        $emoji = $isOnline ? '🟢' : '🔴';
+                                                            $isOnline = $driver->last_activity && \Carbon\Carbon::parse($driver->last_activity)->gt(now()->subMinutes(2));
+                                                            $emoji = $isOnline ? '🟢' : '🔴';
                                                         @endphp
                                                         <option
                                                             value="{{ $driver->id }}"
@@ -63,8 +65,9 @@
                                                             {{ $booking->driver_id == $driver->id ? 'selected' : '' }}>
                                                             {{ $driver->name }}
                                                         </option>
-                                                        @endforeach
-                                                    </select>
+                                                    @endforeach
+                                                </select>
+
                                                     <div id="driver-message-{{ $booking->id }}" class="mt-2"></div>
                                                 </td>
                                                 <td>
@@ -80,6 +83,23 @@
                                                     </button>
                                                 </td>
                                                 <td>
+                                                <form action="{{ route('admin.bookings.updateStatus', $booking->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="on_truck">
+                                                    <button type="submit" class="btn btn-warning btn-sm">
+                                                        On Truck
+                                                    </button>
+                                                </form>
+
+                                                <form action="{{ route('admin.bookings.updateStatus', $booking->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="delivered">
+                                                    <button type="submit" class="btn btn-success btn-sm">
+                                                        Delivered
+                                                    </button>
+                                                </form>
+
+
                                                     @if($booking->on_truck_at)
                                                     <span class="badge badge-warning">On Truck: {{ \Carbon\Carbon::parse($booking->on_truck_at)->format('d M Y H:i') }}</span><br>
                                                     @endif

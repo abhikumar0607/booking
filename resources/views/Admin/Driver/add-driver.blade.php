@@ -33,22 +33,12 @@
 
                         <div class="form-group">
                             <button class="btn btn-success" type="submit">Submit</button>
-                        </div>
-
-                        @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                        @endif
-                        @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                        @endif
+                        </div>                      
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

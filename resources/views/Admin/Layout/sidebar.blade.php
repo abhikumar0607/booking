@@ -64,6 +64,12 @@
               <i class="fas fa-calendar "></i>
               <p>How It works</p>
             </a>            
+          </li> 
+          <li class="nav-item {{ request()->is('admin/all-customers*') ? 'active' : '' }}">
+            <a href="{{ url('admin/all-customers') }}">
+              <i class="fas fa-calendar "></i>
+              <p>Customers</p>
+            </a>            
           </li>               
           </div>
         </div><div class="scroll-element scroll-x scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrolly_visible"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 202px; top: 0px;"></div></div></div></div>

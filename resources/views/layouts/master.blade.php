@@ -196,9 +196,44 @@ document.addEventListener('DOMContentLoaded', function () {
          }
       }
    });
-
 });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script> 
+    $(document).ready(function(){
 
+        let timer; // debounce timer
+
+        $("#customer_number, #code").on("input", function(){
+            clearTimeout(timer); // पहले वाला टाइमर clear
+
+            timer = setTimeout(function(){ // नया delay set
+                let customer_number = $("#customer_number").val();
+                let code = $("#code").val();
+
+                if(customer_number.length > 0 && code.length > 0){
+                    $.ajax({
+                        url: "{{ route('fetch.customer') }}",
+                        method: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            customer_number: customer_number,
+                            code: code
+                        },
+                        success: function(res){
+                            if(res.status){
+                                $("input[name='sender_name']").val(res.name);
+                                $("#sender_phone").val(res.phone);
+                                $("input[name='pickup_address']").val(res.pickup_address);
+                                $("#sender_state_code").val(res.phone_code);
+                            }
+                        }
+                    });
+                }
+            }, 500); 
+        });
+
+    });
+</script>
  </body>
 </html>

@@ -32,6 +32,16 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
+                                <label class="form-label text-dark small fw-bold">Customer Number</label>
+                                <input type="text" name="customer_number" id="customer_number" class="form-control" placeholder="Enter Customer Number">
+                            </div>
+                            <div class="col">
+                                <label class="form-label text-dark small fw-bold">Code</label>
+                                <input type="text" name="code" id="code" class="form-control" placeholder="Enter Code">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
                                 <label class="form-label text-dark small fw-bold">Sender's Name</label>
                                 <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name" value="{{ old('sender_name') }}">
                                 @error('sender_name') <small class="text-danger">{{ $message }}</small> @enderror

@@ -14,27 +14,29 @@
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name"
-                                   value="{{ old('name', $driver->name) }}"
-                                   class="form-control" required>
+                                value="{{ old('name', $driver->name) }}"
+                                class="form-control" required>
                         </div>
-
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email"
-                                   value="{{ old('email', $driver->email) }}"
-                                   class="form-control" required>
+                                value="{{ old('email', $driver->email) }}"
+                                class="form-control" required>
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
                             <input type="text" id="phone" name="phone"
-                                   value="{{ old('phone', $driver->phone) }}"
-                                   class="form-control" required>
+                                value="{{ old('phone', $driver->phone) }}"
+                                class="form-control" required>
                         </div>
-
+                        <div class="form-group">
+                            <label for="password">New Password</label>
+                            <input type="password" id="password" name="password"
+                                class="form-control">
+                        </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>

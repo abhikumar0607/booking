@@ -6,6 +6,7 @@ use App\Mail\DriverCreatedMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 
@@ -58,21 +59,32 @@ class DriverController extends Controller
     public function update_driver(Request $request, $id)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,' . $id,
-            'phone'    => 'required|string|max:12',
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phone' => 'required|string|max:12',
+            'password' => 'nullable|string|min:6',
         ]);
-        $is_updated = User::where('id', $id)->update([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'phone'     => $request->phone,
-        ]);
+    
+        $data = [
+            'name'  => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ];
+    
+        // agar password diya gaya hai to hi update hoga
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        $is_updated = User::where('id', $id)->update($data);
+    
         if ($is_updated) {
             return redirect()->back()->with('success', 'Driver updated successfully!');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Nothing to update!');
-        }        
+        }
     }
+    
     //delete driver
     public function delete_driver($id)
     {

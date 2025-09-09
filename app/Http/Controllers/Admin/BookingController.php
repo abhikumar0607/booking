@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 
 class BookingController extends Controller
@@ -52,39 +53,48 @@ class BookingController extends Controller
     }
     
     //function to assign driver to booking
-    public function assignDriver(Request $request)
-    {
-        $request->validate([
-            'booking_id' => 'required|exists:bookings,id',
-            'driver_id' => [
-                'required',
-                Rule::exists('users', 'id')->where(function ($query) {
-                    $query->where('user_type', 'Driver');
-                }),
-            ],
-        ]);        
+public function assignDriver(Request $request)
+{
+    $request->validate([
+        'booking_id' => 'required|exists:bookings,id',
+        'driver_id' => [
+            'required',
+            Rule::exists('users', 'id')->where(function ($query) {
+                $query->where('user_type', 'Driver');
+            }),
+        ],
+    ]);
 
-        // Now safe to assign
-        $booking = Booking::find($request->booking_id);
+    $booking = Booking::findOrFail($request->booking_id);
 
-        if ($booking->driver_id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Booking already assigned.'
-            ]);
-        }
-
-        $booking->driver_id = $request->driver_id;
-        $booking->status = 'assigned';
-        $booking->save();
-
-        $driver = User::find($request->driver_id);
-        if ($driver && $driver->email) {
-            Mail::to($driver->email)->send(new DriverAssignedMail($booking, $driver));
-        }
-
-        return response()->json(['success' => true]);
+    // Agar booking kisi driver ko already assigned hai aur naye driver ka ID same hai
+    if ($booking->driver_id == $request->driver_id) {
+        return response()->json([
+            'success' => false,
+            'message' => 'This driver is already assigned to the booking.'
+        ]);
     }
+
+    // Purane driver ko hatao aur naye driver ko assign karo
+    $oldDriverId = $booking->driver_id;
+    $booking->driver_id = $request->driver_id;
+    $booking->status = 'assigned';
+    $booking->save();
+
+    // Naye driver ko mail bhejna
+    $driver = User::find($request->driver_id);
+    if ($driver && $driver->email) {
+        Mail::to($driver->email)->send(new DriverAssignedMail($booking, $driver));
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => $oldDriverId 
+            ? 'Driver reassigned successfully!' 
+            : 'Driver assigned successfully!'
+    ]);
+}
+
 
     //function to delete booking
     public function delete_booking($id)
@@ -92,7 +102,26 @@ class BookingController extends Controller
         Booking::where('id', $id)->delete();
         return redirect()->back()->with('success', 'Booking deleted successfully!');
     }
-
+    public function updateStatus(Request $request, Booking $booking)
+    {
+        $request->validate([
+            'status' => 'required|in:on_truck,delivered',
+        ]);
     
+        if ($request->status === 'on_truck') {
+            $booking->on_truck_at = now();
+            $booking->delivered_at = null; // reset delivered
+        } elseif ($request->status === 'delivered') {
+            $booking->delivered_at = now();
+            $booking->on_truck_at = null; // reset on_truck
+        }
+    
+        $booking->status = $request->status;
+        $booking->save();
+    
+        return back()->with('success', 'Booking status updated successfully by Admin!');
+    }
+    
+
        
 }

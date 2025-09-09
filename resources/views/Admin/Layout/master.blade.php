@@ -41,9 +41,11 @@
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/style.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
     <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ url('public/admin/assets/css/demo.css') }}" />
+        <!-- Toastr CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
     <script>
       var base_url = '{{ url("admin/") }}'; 
       var base_url_new = '{{ url("/") }}'; 
@@ -69,6 +71,7 @@
     </div>
     <!--   Core JS Files   -->
     <script src="{{ url('public/admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ url('public/admin/assets/js/custom-ajax.js') }}"></script>    
     <script src="{{ url('public/admin/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ url('public/admin/assets/js/core/bootstrap.min.js') }}"></script>
@@ -102,14 +105,38 @@
     <script src="{{ url('public/admin/assets/js/demo.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.0/jspdf.plugin.autotable.min.js"></script>
-    <script src="{{ url('public/admin/assets/js/custom-script.js') }}"></script>
-    
-<!-- Select2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-       <script>
+    <script src="{{ url('public/admin/assets/js/custom-script.js') }}"></script>    
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});
         });
-        </script>    
+    </script> 
+    <script>
+      @if(Session::has('success'))
+          toastr.success("{{ Session::get('success') }}");
+      @endif
+
+      @if(Session::has('error'))
+          toastr.error("{{ Session::get('error') }}");
+      @endif
+
+      @if(Session::has('warning'))
+          toastr.warning("{{ Session::get('warning') }}");
+      @endif
+
+      @if(Session::has('info'))
+          toastr.info("{{ Session::get('info') }}");
+      @endif
+    </script>
+   <style>
+    #toast-container.toast-top-right {
+    top: 70px !important;
+    right: 0px;
+}
+</style>
   </body>
 </html>
+
+

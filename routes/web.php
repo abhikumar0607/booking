@@ -13,8 +13,8 @@ Route::get('/register', function () {  return redirect('/login');});
 Route::get('test-email', [App\Http\Controllers\TestEmailController::class, 'test_email']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\FrontEndController::class, 'home']);
-//Route::get('/booking', [App\Http\Controllers\Customer\BookingController::class, 'index']);
 Route::post('/store-booking', [App\Http\Controllers\Customer\BookingController::class, 'store_data'])->name('store.booking');
+Route::post('/fetch-customer', [App\Http\Controllers\Customer\BookingController::class, 'fetch_customer'])->name('fetch.customer');
 
 
 //admin
@@ -29,6 +29,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
     Route::get('/booking/delete/{id}', [App\Http\Controllers\Admin\BookingController::class, 'delete_booking'])->name('booking.delete');
     Route::get('/booking/edit/{id}', [App\Http\Controllers\Admin\BookingController::class, 'edit_booking'])->name('booking.edit');
     Route::post('/booking/update/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update_booking'])->name('booking.update');
+    Route::post('/admin/bookings/{booking}/update-status', [App\Http\Controllers\Admin\BookingController::class, 'updateStatus'])->name('bookings.updateStatus');
     //drivers
     Route::get('/add-driver', [App\Http\Controllers\Driver\DriverController::class, 'add_new_driver']);
     Route::post('/submit-driver', [App\Http\Controllers\Driver\DriverController::class, 'submit_driver'])->name('driver.submit.driver');
@@ -36,6 +37,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
     Route::get('/driver/edit/{id}', [App\Http\Controllers\Driver\DriverController::class, 'edit_driver'])->name('drivers.edit');
     Route::post('/driver/update/{id}', [App\Http\Controllers\Driver\DriverController::class, 'update_driver'])->name('driver.update');
     Route::get('/drivers/delete/{id}', [App\Http\Controllers\Driver\DriverController::class, 'delete_driver'])->name('drivers.delete');
+    //customers
+    Route::get('/all-customers', [App\Http\Controllers\Customer\CustomerController::class, 'view_customers']);
+    Route::get('/add-customer', [App\Http\Controllers\Customer\CustomerController::class, 'add_customer']);
+    Route::post('/submit-customer', [App\Http\Controllers\Customer\CustomerController::class, 'submit_customer'])->name('submit.customer');
+    Route::get('/customer/edit/{id}', [App\Http\Controllers\Customer\CustomerController::class, 'edit_customer'])->name('customer.edit');
+    Route::post('/customer/update/{id}', [App\Http\Controllers\Customer\CustomerController::class, 'update_customer'])->name('update.customer');    
+    Route::get('/customer/delete/{id}', [App\Http\Controllers\Customer\CustomerController::class, 'delete_customer'])->name('customer.delete');    
+
     //logos
     Route::get('/all-logos', [App\Http\Controllers\Admin\LogoController::class, 'index']);
     Route::get('/add-logo', [App\Http\Controllers\Admin\LogoController::class, 'add_logo']);

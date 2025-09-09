@@ -36,11 +36,8 @@ class BookingController extends Controller
             'recipient_state_code' => 'required|string|in:"02","03","04","07","08","1300","1800"',
             'recipient_name'   => 'required|string|max:255',
             'recipient_phone'  => ['required', 'regex:/^[0-9]{6,15}$/'], 
-            'delivery_address' => 'required|string|max:500',
+            'delivery_address' => 'required|string|max:500',    
             'delivery_notes'   => 'nullable|string|max:1000',
-            'item_type'        => 'required|array|min:1',
-            'item_type.*'      => 'nullable|string',
-            'number_of_items'  => 'nullable|array',
             'number_of_items.*'=> 'nullable|integer|min:1',
             'payment_method'   => 'required|in:Stripe,Cash on Delivery',
             'total_price'      => 'required|numeric|min:1', 
@@ -104,6 +101,32 @@ class BookingController extends Controller
             Mail::to($admin->email)->send(new NewBookingMail($booking));
         }
         return back()->with('success', 'Booking created successfully!');
-    }       
+    }
+
+    public function fetch_customer(Request $request)
+    {
+        $request->validate([
+            'customer_number' => 'required',
+            'code' => 'required',
+        ]);
+
+        $user = User::where('customer_number', $request->customer_number)
+                    ->where('code', $request->code)
+                    ->first();
+
+        if ($user) {
+            return response()->json([
+                'status' => true,
+                'name' => $user->name,
+                'phone' => $user->phone,
+                'phone_code' => $user->phone_code, 
+                'pickup_address' => $user->pickup_address,
+                'phone_code' => $user->phone_code, 
+            ]);
+        }
+
+        return response()->json(['status' => false, 'message' => 'Customer not found']);
+    }
+
 
 }
